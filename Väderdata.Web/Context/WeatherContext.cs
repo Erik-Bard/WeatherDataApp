@@ -13,8 +13,10 @@ namespace Väderdata.Web.Context
         {
 
         }
-        public DbSet<Väderdata.Web.Data.AvgTemp> AvgTemp { get; set; }
+        public DbSet<AvgTemp> AvgTemp { get; set; }
         // DbSet's go here:
+        public DbSet<CsvModelClass> CsvModelClasses { get; set; }
 
+        public DbSet<> MyProperty { get; set; }
     }
 }
