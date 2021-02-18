@@ -54,10 +54,6 @@ namespace Väderdata.Web.Information
                 balkongdörren.
 
             ▫ Sortering på då inne- och yttertemperaturen skiljt sig mest och minst.
-
-         
-         
-         
          
          */
     }

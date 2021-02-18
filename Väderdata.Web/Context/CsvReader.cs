@@ -12,35 +12,33 @@ namespace Väderdata.Web.Context
 {
     public class CsvReader
     {
-        public static string csv_file_path = "../../../WeatherData.csv";
+        public static string csv_file_path = "../TempFuktData.csv";
         public static DataTable GetDataTabletFromCSVFile()
         {
             DataTable csvData = new DataTable();
             try
             {
-                using (TextFieldParser csvReader = new TextFieldParser(csv_file_path))
+                TextFieldParser csvReader = new TextFieldParser("../TempFuktData.csv");
+                csvReader.SetDelimiters(new string[] { "," });
+                csvReader.HasFieldsEnclosedInQuotes = true;
+                string[] colFields = csvReader.ReadFields();
+                foreach (string column in colFields)
                 {
-                    csvReader.SetDelimiters(new string[] { "," });
-                    csvReader.HasFieldsEnclosedInQuotes = true;
-                    string[] colFields = csvReader.ReadFields();
-                    foreach (string column in colFields)
+                    DataColumn datecolumn = new DataColumn(column);
+                    datecolumn.AllowDBNull = true;
+                    csvData.Columns.Add(datecolumn);
+                }
+                while (!csvReader.EndOfData)
+                {
+                    string[] fieldData = csvReader.ReadFields();
+                    for (int i = 0; i < fieldData.Length; i++)
                     {
-                        DataColumn datecolumn = new DataColumn(column);
-                        datecolumn.AllowDBNull = true;
-                        csvData.Columns.Add(datecolumn);
-                    }
-                    while (!csvReader.EndOfData)
-                    {
-                        string[] fieldData = csvReader.ReadFields();
-                        for (int i = 0; i < fieldData.Length; i++)
+                        if (fieldData[i] == "")
                         {
-                            if (fieldData[i] == "")
-                            {
-                                fieldData[i] = null;
-                            }
+                            fieldData[i] = null;
                         }
-                        csvData.Rows.Add(fieldData);
                     }
+                    csvData.Rows.Add(fieldData);
                 }
             }
             catch (Exception)
