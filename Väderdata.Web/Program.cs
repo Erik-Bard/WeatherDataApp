@@ -1,3 +1,4 @@
+using CsvHelper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +28,43 @@ namespace Väderdata.Web
                 try
                 {
                     var context = services.GetRequiredService<WeatherContext>();
+<<<<<<< HEAD
                     //CSVMarcus.ReadCsv();
                     DataTable datatable = CsvReader.GetDataTabletFromCSVFile();
                     CsvReader.InsertDataAsBulk(datatable);
+=======
+                    //DataTable datatable = CsvReadHelper.GetDataTabletFromCSVFile();
+                    var read = CsvReadHelper.Reader();
+                    if (read == null)
+                    {
+                        Console.WriteLine("\n\nThis is the end of the sequence");
+                    }
+                    else
+                    {
+                        int counter = 1;
+                        foreach (var item in read)
+                        {
+                            if (item.Error != null)
+                            {
+                                Console.WriteLine("NEJ");
+                            }
+                            else
+                            {
+                                Console.WriteLine(
+                                                  $"{counter}," +
+                                                  $"DATE:{item.Result.Datum}," +
+                                                  $"LOC:{item.Result.Plats}," +
+                                                  $"TEMP:{item.Result.Temp}," +
+                                                  $"MOIST:{item.Result.Luftfuktighet}");
+                                counter++;
+                                context.CsvModelClasses.Add(item.Result);
+                            }
+                        }
+                    }
+                    context.SaveChanges();
+                    //context.CsvModelClasses.Add(read);
+                    //CsvReadHelper.InsertDataAsBulk();
+>>>>>>> 868031abb1d0e621c76139e8e2f1df0a89100b50
                 }
                 catch (Exception ex)
                 {
