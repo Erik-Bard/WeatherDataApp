@@ -12,13 +12,13 @@ namespace Väderdata.Web.Context
 {
     public class CsvReader
     {
-        public static string csv_file_path = "../../TempFuktData.csv";
+        public static string csv_file_path = "../../../TempFuktData.csv";
         public static DataTable GetDataTabletFromCSVFile()
         {
             DataTable csvData = new DataTable();
             try
             {
-                TextFieldParser csvReader = new TextFieldParser(csv_file_path);
+                TextFieldParser csvReader = new TextFieldParser(csv_file_path) ;
                 csvReader.SetDelimiters(new string[] { "," });
                 csvReader.HasFieldsEnclosedInQuotes = true;
                 string[] colFields = csvReader.ReadFields();
