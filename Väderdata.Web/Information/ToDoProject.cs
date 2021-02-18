@@ -8,6 +8,7 @@ namespace Väderdata.Web.Information
     public class ToDoProject
     {
         /*
+         * Datum,Plats,Temp,Luftfuktighet
          G
 
 
