@@ -12,7 +12,7 @@ namespace Väderdata.Web.Context
 {
     public class CsvReader
     {
-        public static string csv_file_path = "../../TempFuktData.csv";
+        public static string csv_file_path = "TempFuktData.csv";
         public static DataTable GetDataTabletFromCSVFile()
         {
             DataTable csvData = new DataTable();
@@ -40,6 +40,7 @@ namespace Väderdata.Web.Context
                     }
                     csvData.Rows.Add(fieldData);
                 }
+                csvReader.Close();
             }
             catch (Exception)
             {
@@ -49,7 +50,7 @@ namespace Väderdata.Web.Context
         }
         public static void InsertDataAsBulk(DataTable csvFileData)
         {
-            using (SqlConnection dbConnection = new SqlConnection("Data Source=ProductHost;Initial Catalog=WeatherDataDb;Integrated Security=True;"))
+            using (SqlConnection dbConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=WeatherDataDb;Integrated Security=True;"))
             {
                 dbConnection.Open();
                 using (SqlBulkCopy s = new SqlBulkCopy(dbConnection))
@@ -59,6 +60,7 @@ namespace Väderdata.Web.Context
                         s.ColumnMappings.Add(column.ToString(), column.ToString());
                     s.WriteToServer(csvFileData);
                 }
+                dbConnection.Close();
             }
         }
     }
