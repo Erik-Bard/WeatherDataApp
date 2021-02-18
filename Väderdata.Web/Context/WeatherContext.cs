@@ -20,7 +20,7 @@ namespace Väderdata.Web.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CsvModelClass>()
-                .ToTable("CsvModel");
+                .ToTable("CsvModelClasses");
         }
     }
 }

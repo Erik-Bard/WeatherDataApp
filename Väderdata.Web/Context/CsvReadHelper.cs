@@ -16,42 +16,6 @@ namespace Väderdata.Web.Context
     public class CsvReadHelper
     {
         public static string csv_file_path = "TempFuktData.csv";
-        //public static DataTable GetDataTabletFromCSVFile()
-        //{
-        //    DataTable csvData = new DataTable();
-        //    try
-        //    {
-        //        TextFieldParser csvReader = new TextFieldParser(csv_file_path);
-        //        csvReader.SetDelimiters(new [] { "," });
-        //        csvReader.HasFieldsEnclosedInQuotes = true;
-        //        string[] colFields = csvReader.ReadFields();
-        //        foreach (string column in colFields)
-        //        {
-        //            DataColumn datecolumn = new DataColumn(column);
-        //            datecolumn.AllowDBNull = true;
-        //            csvData.Columns.Add(datecolumn);
-        //        }
-        //        while (!csvReader.EndOfData)
-        //        {
-        //            string[] fieldData = csvReader.ReadFields();
-        //            for (int i = 0; i < fieldData.Length; i++)
-        //            {
-        //                if (fieldData[i] == "")
-        //                {
-        //                    fieldData[i] = null;
-        //                }
-        //            }
-        //            csvData.Rows.Add(fieldData);
-        //        }
-        //        csvReader.Close();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return null;
-        //    }
-        //    return csvData;
-        //}
-
         public static List<TinyCsvParser.Mapping.CsvMappingResult<CsvModelClass>> Reader()
         {
             TextReader reader = new StreamReader("TempFuktData.csv");
