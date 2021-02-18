@@ -54,7 +54,7 @@ namespace Väderdata.Web.Context
                 dbConnection.Open();
                 using (SqlBulkCopy s = new SqlBulkCopy(dbConnection))
                 {
-                    s.DestinationTableName = "";
+                    s.DestinationTableName = "CsvModel";
                     foreach (var column in csvFileData.Columns)
                         s.ColumnMappings.Add(column.ToString(), column.ToString());
                     s.WriteToServer(csvFileData);
