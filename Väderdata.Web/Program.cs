@@ -6,9 +6,12 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Väderdata.Web.Context;
+using Väderdata.Web.Data;
 
 namespace Väderdata.Web
 {
@@ -24,6 +27,7 @@ namespace Väderdata.Web
                 try
                 {
                     var context = services.GetRequiredService<WeatherContext>();
+                    //CSVMarcus.ReadCsv();
                     DataTable datatable = CsvReader.GetDataTabletFromCSVFile();
                     CsvReader.InsertDataAsBulk(datatable);
                 }

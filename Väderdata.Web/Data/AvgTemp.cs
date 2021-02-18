@@ -13,7 +13,7 @@ namespace Väderdata.Web.Data
         // SelectDate shows average temp for a chosen day
         public DateTime SelectDate { get; set; }
 
-        public decimal AverageTemperature { get; set; }
+        public double AverageTemperature { get; set; }
 
     }
 
