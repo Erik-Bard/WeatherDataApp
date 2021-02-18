@@ -17,6 +17,5 @@ namespace Väderdata.Web.Context
         // DbSet's go here:
         public DbSet<CsvModelClass> CsvModelClasses { get; set; }
 
-        public DbSet<> MyProperty { get; set; }
     }
 }

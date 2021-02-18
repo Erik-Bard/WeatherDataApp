@@ -33,7 +33,12 @@ namespace Väderdata.Web
         --  http://www.penthon.com/vanliga-fragor/faq/vad-innebar-mogelindex/
         -- temperatur från 0 till 50 grader
         -- fukt under 78% för torrt
-        -- Python formula för fukt
+        -- Python formula för fukt 
+
+                #  0 = No risk
+                #  1 = Mould growth possible after > 8 weeks
+                #  2 = Mould growth after 4-8 weeks
+                #  3 = Mould growth after 0-4 weeks
 
         rtemp = relative temperature
         rhum = relative humidity
