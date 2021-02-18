@@ -54,7 +54,10 @@ namespace Väderdata.Web.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3556ff149f089736392e71e7887fc38df78ae914
                     b.ToTable("CsvModelClasses");
                     b.ToTable("CsvModel");
                 });
