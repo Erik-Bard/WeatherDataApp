@@ -12,14 +12,13 @@ namespace Väderdata.Web
         --  API app skapad
         --  AvgTemp tabell och CSVmodelklass tabell skapad
         --  kontroller för avgtemp skapad
-        --  text filen av csv data metod skriven 
         --  första migration och databas uppdattering gjord utan problem
         --  weather context class skapad DbSet påbörjad
 
         2021-02-18
         --  meteorologisksäsong och mögelrisk class skapad
         --  summary och regler för höst vinter och mögel klasser skapade med info om projektet och definitioner
-        --  
+        --  inläsning från csv filens metod skriver
          
          
          

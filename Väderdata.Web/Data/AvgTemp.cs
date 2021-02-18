@@ -12,5 +12,14 @@ namespace Väderdata.Web.Data
         public int Id { get; set; }
         // SelectDate shows average temp for a chosen day
         public DateTime SelectDate { get; set; }
+
+        public decimal AverageTemperature { get; set; }
+
+    }
+
+    public enum Position
+    {
+        inne,
+        ute
     }
 }
