@@ -17,5 +17,10 @@ namespace Väderdata.Web.Context
         // DbSet's go here:
         public DbSet<CsvModelClass> CsvModelClasses { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CsvModelClass>()
+                .ToTable("CsvModel");
+        }
     }
 }
