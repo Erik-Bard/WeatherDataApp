@@ -12,11 +12,7 @@ namespace Väderdata.Web.Context
 {
     public class CsvReader
     {
-<<<<<<< HEAD
-        public static string csv_file_path = "../../../TempFuktData.csv";
-=======
         public static string csv_file_path = "TempFuktData.csv";
->>>>>>> 3556ff149f089736392e71e7887fc38df78ae914
         public static DataTable GetDataTabletFromCSVFile()
         {
             DataTable csvData = new DataTable();
