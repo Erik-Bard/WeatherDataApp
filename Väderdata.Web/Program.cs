@@ -7,9 +7,12 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Väderdata.Web.Context;
+using Väderdata.Web.Data;
 
 namespace Väderdata.Web
 {
@@ -25,43 +28,37 @@ namespace Väderdata.Web
                 try
                 {
                     var context = services.GetRequiredService<WeatherContext>();
+                    //DataTable datatable = CsvReadHelper.GetDataTabletFromCSVFile();
                     var read = CsvReadHelper.Reader();
-                    // Ensure the DB exists and doesnt have any data in the table we want to populate
-                    context.Database.EnsureCreated();
-                    if (context.CsvModelClasses.Any())
+                    if (read == null)
                     {
-                        Console.WriteLine("\nData already exists in database. Please remove old data before inserting new.");
+                        Console.WriteLine("\n\nThis is the end of the sequence");
                     }
                     else
                     {
-                        if (read == null)
+                        int counter = 1;
+                        foreach (var item in read)
                         {
-                            Console.WriteLine("\n\nThis is the end of the sequence");
-                        }
-                        else
-                        {
-                            int counter = 1;
-                            foreach (var item in read)
+                            if (item.Error != null)
                             {
-                                if (item.Error != null)
-                                {
-                                    Console.WriteLine("NEJ");
-                                }
-                                else
-                                {
-                                    Console.WriteLine(
-                                                      $"{counter}," +
-                                                      $"DATE:{item.Result.Datum}," +
-                                                      $"LOC:{item.Result.Plats}," +
-                                                      $"TEMP:{item.Result.Temp}," +
-                                                      $"MOIST:{item.Result.Luftfuktighet}");
-                                    counter++;
-                                    context.CsvModelClasses.Add(item.Result);
-                                }
+                                Console.WriteLine("NEJ");
+                            }
+                            else
+                            {
+                                Console.WriteLine(
+                                                  $"{counter}," +
+                                                  $"DATE:{item.Result.Datum}," +
+                                                  $"LOC:{item.Result.Plats}," +
+                                                  $"TEMP:{item.Result.Temp}," +
+                                                  $"MOIST:{item.Result.Luftfuktighet}");
+                                counter++;
+                                context.CsvModelClasses.Add(item.Result);
                             }
                         }
-                        context.SaveChanges();
                     }
+                    context.SaveChanges();
+                    //context.CsvModelClasses.Add(read);
+                    //CsvReadHelper.InsertDataAsBulk();
                 }
                 catch (Exception ex)
                 {
