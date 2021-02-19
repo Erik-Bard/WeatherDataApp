@@ -31,7 +31,8 @@ namespace Väderdata.Web.Data
             Console.WriteLine(counterList.Count());
             var avgTemp = total / counterList.Count();
             Console.WriteLine(avgTemp);
-            return avgTemp;
+            var roundedResult = Math.Round(avgTemp, 2);
+            return roundedResult;
         }
     }
 }
