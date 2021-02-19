@@ -27,15 +27,12 @@ namespace Väderdata.Web
                 try
                 {
                     var context = services.GetRequiredService<WeatherContext>();
-<<<<<<< HEAD
                     ////CSVMarcus.ReadCsv();
                     //DataTable datatable = CsvReader.GetDataTabletFromCSVFile();
                     //CsvReader.InsertDataAsBulk(datatable);
                     //DataTable datatable = CsvReadHelper.GetDataTabletFromCSVFile();
-=======
 
                     //CSVMarcus.ReadCsv();
->>>>>>> d1f45f4d5d61ffe146f598942cc58b36848ce99f
                     var read = CsvReadHelper.Reader();
                     // Ensure the DB exists and doesnt have any data in the table we want to populate
                     context.Database.EnsureCreated();
@@ -74,11 +71,6 @@ namespace Väderdata.Web
                         context.SaveChanges();
                     }
                     context.SaveChanges();
-<<<<<<< HEAD
-                    //context.CsvModelClasses.Add(read);
-                    //CsvReadHelper.InsertDataAsBulk();
-=======
->>>>>>> d1f45f4d5d61ffe146f598942cc58b36848ce99f
                 }
                 catch (Exception ex)
                 {
