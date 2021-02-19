@@ -1,3 +1,4 @@
+using CsvHelper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,19 +20,13 @@ namespace Väderdata.Web
     {
         public static void Main(string[] args)
         {
-
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<WeatherContext>();
-                    ////CSVMarcus.ReadCsv();
-                    //DataTable datatable = CsvReader.GetDataTabletFromCSVFile();
-                    //CsvReader.InsertDataAsBulk(datatable);
-                    //DataTable datatable = CsvReadHelper.GetDataTabletFromCSVFile();
-
+                    var context = services.GetRequiredService<WeatherContext>();                             
                     //CSVMarcus.ReadCsv();
                     var read = CsvReadHelper.Reader();
                     // Ensure the DB exists and doesnt have any data in the table we want to populate
