@@ -10,8 +10,8 @@ using Väderdata.Web.Context;
 namespace Väderdata.Web.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20210219102501_inicommit")]
-    partial class inicommit
+    [Migration("20210219104734_marcus")]
+    partial class marcus
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,7 @@ namespace Väderdata.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CsvModelClasses");
+                    b.ToTable("CsvModelClass");
                 });
 #pragma warning restore 612, 618
         }

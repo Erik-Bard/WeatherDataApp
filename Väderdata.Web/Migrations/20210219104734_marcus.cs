@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Väderdata.Web.Migrations
 {
-    public partial class inicommit : Migration
+    public partial class marcus : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,7 +23,7 @@ namespace Väderdata.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CsvModelClasses",
+                name: "CsvModelClass",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -35,7 +35,7 @@ namespace Väderdata.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CsvModelClasses", x => x.Id);
+                    table.PrimaryKey("PK_CsvModelClass", x => x.Id);
                 });
         }
 
@@ -45,7 +45,7 @@ namespace Väderdata.Web.Migrations
                 name: "AvgTemp");
 
             migrationBuilder.DropTable(
-                name: "CsvModelClasses");
+                name: "CsvModelClass");
         }
     }
 }

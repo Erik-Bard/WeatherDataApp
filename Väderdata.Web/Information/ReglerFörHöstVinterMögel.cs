@@ -42,6 +42,7 @@ namespace Väderdata.Web
 
         rtemp = relative temperature
         rhum = relative humidity
+        mtab = table with all results
 
 
                 rtemp = round(temp)

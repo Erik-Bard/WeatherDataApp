@@ -61,7 +61,7 @@ namespace Väderdata.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CsvModelClasses");
+                    b.ToTable("CsvModelClass");
                 });
 #pragma warning restore 612, 618
         }
