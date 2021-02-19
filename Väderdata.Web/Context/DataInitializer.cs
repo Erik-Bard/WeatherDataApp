@@ -87,12 +87,6 @@ namespace Väderdata.Web.Context
         }
         public static void GetMouldRisk(WeatherContext context)
         {
-            Console.WriteLine("in method");
-            var avgTemp = from temp in context.AvgTemp
-                          select temp;
-
-           
-                          
 
         }
     }

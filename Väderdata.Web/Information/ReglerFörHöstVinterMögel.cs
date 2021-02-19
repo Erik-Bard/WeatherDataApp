@@ -44,7 +44,6 @@ namespace Väderdata.Web
         rhum = relative humidity
         mtab = table with all results
 
-
                 rtemp = round(temp)
                 rhum = round(hum)
                 if (rtemp <= 0) or (rtemp > 50):
