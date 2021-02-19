@@ -1,4 +1,3 @@
-using CsvHelper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,11 +27,9 @@ namespace Väderdata.Web
                 try
                 {
                     var context = services.GetRequiredService<WeatherContext>();
-<<<<<<< HEAD
-                    //CSVMarcus.ReadCsv();
-                    DataTable datatable = CsvReader.GetDataTabletFromCSVFile();
-                    CsvReader.InsertDataAsBulk(datatable);
-=======
+                    ////CSVMarcus.ReadCsv();
+                    //DataTable datatable = CsvReader.GetDataTabletFromCSVFile();
+                    //CsvReader.InsertDataAsBulk(datatable);
                     //DataTable datatable = CsvReadHelper.GetDataTabletFromCSVFile();
                     var read = CsvReadHelper.Reader();
                     if (read == null)
@@ -64,7 +61,6 @@ namespace Väderdata.Web
                     context.SaveChanges();
                     //context.CsvModelClasses.Add(read);
                     //CsvReadHelper.InsertDataAsBulk();
->>>>>>> 868031abb1d0e621c76139e8e2f1df0a89100b50
                 }
                 catch (Exception ex)
                 {
