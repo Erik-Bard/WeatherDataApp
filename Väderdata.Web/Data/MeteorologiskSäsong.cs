@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Väderdata.Web.Context;
 
 namespace Väderdata.Web.Data
 {
@@ -13,6 +14,39 @@ namespace Väderdata.Web.Data
 
         public DateTime VinterDatum { get; set; }
 
+        public static DateTime? AutumnDate(WeatherContext context, DateTime höstDatum)
+        {
+            int DateInRow = 0;
 
+            var query = (from p in context.AvgTemp
+                         where p.Plats == "Ute"
+                         select p.AverageTemperature)
+                         .ToList();
+            var selectQuery = (from q in query
+                               where q > 0 && q < 10
+                               select q);
+
+
+            Console.WriteLine(selectQuery);
+
+            foreach (var temp in selectQuery)
+            {
+                Console.WriteLine(temp);
+                if (temp < 10 && temp >= 0)
+                {
+                    DateInRow += 1;
+                }
+                if (DateInRow == 5)
+                {
+                    Console.WriteLine(höstDatum);
+                    return höstDatum;
+                }
+                if(temp > 10 && temp < 0)
+                {
+                    DateInRow = 0;
+                }
+            }
+            return null;
+        }
     }
 }

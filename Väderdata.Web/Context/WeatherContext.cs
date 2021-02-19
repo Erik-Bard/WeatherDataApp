@@ -22,6 +22,7 @@ namespace Väderdata.Web.Context
         public DbSet<CsvModelClass> CsvModelClasses { get; set; }
 
         public DbSet<MögelRisk> MögelRisks { get; set; }
+        public DbSet<MeteorologiskSäsong> WeatherSeason { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
