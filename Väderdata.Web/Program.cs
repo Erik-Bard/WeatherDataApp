@@ -27,40 +27,58 @@ namespace Väderdata.Web
                 try
                 {
                     var context = services.GetRequiredService<WeatherContext>();
+<<<<<<< HEAD
                     ////CSVMarcus.ReadCsv();
                     //DataTable datatable = CsvReader.GetDataTabletFromCSVFile();
                     //CsvReader.InsertDataAsBulk(datatable);
                     //DataTable datatable = CsvReadHelper.GetDataTabletFromCSVFile();
+=======
+
+                    //CSVMarcus.ReadCsv();
+>>>>>>> d1f45f4d5d61ffe146f598942cc58b36848ce99f
                     var read = CsvReadHelper.Reader();
-                    if (read == null)
+                    // Ensure the DB exists and doesnt have any data in the table we want to populate
+                    context.Database.EnsureCreated();
+                    if (context.CsvModelClasses.Any())
                     {
-                        Console.WriteLine("\n\nThis is the end of the sequence");
+                        Console.WriteLine("\nData already exists in database. Please remove old data before inserting new.");
                     }
                     else
                     {
-                        int counter = 1;
-                        foreach (var item in read)
+                        if (read == null)
                         {
-                            if (item.Error != null)
+                            Console.WriteLine("\n\nThis is the end of the sequence");
+                        }
+                        else
+                        {
+                            int counter = 1;
+                            foreach (var item in read)
                             {
-                                Console.WriteLine("NEJ");
-                            }
-                            else
-                            {
-                                Console.WriteLine(
-                                                  $"{counter}," +
-                                                  $"DATE:{item.Result.Datum}," +
-                                                  $"LOC:{item.Result.Plats}," +
-                                                  $"TEMP:{item.Result.Temp}," +
-                                                  $"MOIST:{item.Result.Luftfuktighet}");
-                                counter++;
-                                context.CsvModelClasses.Add(item.Result);
+                                if (item.Error != null)
+                                {
+                                    Console.WriteLine("NEJ");
+                                }
+                                else
+                                {
+                                    Console.WriteLine(
+                                                      $"{counter}," +
+                                                      $"DATE:{item.Result.Datum}," +
+                                                      $"LOC:{item.Result.Plats}," +
+                                                      $"TEMP:{item.Result.Temp}," +
+                                                      $"MOIST:{item.Result.Luftfuktighet}");
+                                    counter++;
+                                    context.CsvModelClasses.Add(item.Result);
+                                }
                             }
                         }
+                        context.SaveChanges();
                     }
                     context.SaveChanges();
+<<<<<<< HEAD
                     //context.CsvModelClasses.Add(read);
                     //CsvReadHelper.InsertDataAsBulk();
+=======
+>>>>>>> d1f45f4d5d61ffe146f598942cc58b36848ce99f
                 }
                 catch (Exception ex)
                 {
