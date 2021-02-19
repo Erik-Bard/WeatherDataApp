@@ -18,10 +18,4 @@ namespace Väderdata.Web.Data
 
         public string Plats { get; set; }
     }
-
-    public enum Position
-    {
-        inne,
-        ute
-    }
 }

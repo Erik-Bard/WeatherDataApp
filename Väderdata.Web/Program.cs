@@ -31,6 +31,7 @@ namespace Väderdata.Web
                     var read = CsvReadHelper.Reader();
                     // Ensure the DB exists and doesnt have any data in the table we want to populate
                     context.Database.EnsureCreated();
+                    
                     if (context.CsvModelClasses.Any())
                     {
                         Console.WriteLine("\nData already exists in database. Please remove old data before inserting new.");
@@ -48,23 +49,25 @@ namespace Väderdata.Web
                             {
                                 if (item.Error != null)
                                 {
-                                    Console.WriteLine("NEJ");
+                                    //Console.WriteLine("NEJ");
                                 }
                                 else
                                 {
-                                    Console.WriteLine(
-                                                      $"{counter}," +
-                                                      $"DATE:{item.Result.Datum}," +
-                                                      $"LOC:{item.Result.Plats}," +
-                                                      $"TEMP:{item.Result.Temp}," +
-                                                      $"MOIST:{item.Result.Luftfuktighet}");
+                                    //Console.WriteLine(
+                                    //                  $"{counter}," +
+                                    //                  $"DATE:{item.Result.Datum}," +
+                                    //                  $"LOC:{item.Result.Plats}," +
+                                    //                  $"TEMP:{item.Result.Temp}," +
+                                    //                  $"MOIST:{item.Result.Luftfuktighet}");
                                     counter++;
                                     context.CsvModelClasses.Add(item.Result);
                                 }
                             }
                         }
                         context.SaveChanges();
+                        
                     }
+                    DataInitializer.PopulateAvgTemp(context);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
