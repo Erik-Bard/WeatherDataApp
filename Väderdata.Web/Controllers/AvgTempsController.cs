@@ -54,7 +54,7 @@ namespace Väderdata.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SelectDate")] AvgTemp avgTemp)
+        public async Task<IActionResult> Create([Bind("Id,SelectDate,Plats")] AvgTemp avgTemp)
         {
             if (ModelState.IsValid)
             {

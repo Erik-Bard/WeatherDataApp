@@ -25,7 +25,7 @@
 //                var s = CreateInfo(Line);
 //                WxInfo.Add(s);
 //            }
-//            foreach(var item in WxInfo)
+//            foreach (var item in WxInfo)
 //            {
 //                _Context.CsvModelClasses.Add(item);
 //            }
