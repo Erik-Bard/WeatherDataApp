@@ -19,6 +19,11 @@ namespace Väderdata.Web
         --  meteorologisksäsong och mögelrisk class skapad
         --  summary och regler för höst vinter och mögel klasser skapade med info om projektet och definitioner
         --  inläsning från csv filens metod skriver
+        --  klarat av inläsningen, 2 olika sätt Streamreader/writer och CSV Reader, lite problem med streamreader så kommenterat bort
+
+        2021-02-19
+        --  indelning av vilka som ska göra vilken meod
+        --  start av metod för medel temperatur och LINQ har använts
          
          
          
