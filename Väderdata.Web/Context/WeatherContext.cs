@@ -18,10 +18,16 @@ namespace Väderdata.Web.Context
         public DbSet<AvgTemp> AvgTemp { get; set; }
         public DbSet<CsvModelClass> CsvModelClasses { get; set; }
 
+        public DbSet<MögelRisk> MögelRisks { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CsvModelClass>()
-                .ToTable("CsvModelClasses");
+                .ToTable("CsvModelClass");
+            modelBuilder.Entity<MögelRisk>()
+                .ToTable("MögelRisk");
+
+                
         }
     }
 }
