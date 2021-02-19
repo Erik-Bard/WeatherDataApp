@@ -16,6 +16,9 @@ namespace Väderdata.Web.Context
 
         // DbSet's go here:
         public DbSet<AvgTemp> AvgTemp { get; set; }
+
+        public DbSet<AvgHumidity> AvgHumidities { get; set; }
+
         public DbSet<CsvModelClass> CsvModelClasses { get; set; }
 
         public DbSet<MögelRisk> MögelRisks { get; set; }

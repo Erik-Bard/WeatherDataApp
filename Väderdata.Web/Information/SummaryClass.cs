@@ -24,6 +24,9 @@ namespace Väderdata.Web
         2021-02-19
         --  indelning av vilka som ska göra vilken meod
         --  start av metod för medel temperatur och LINQ har använts
+        --  metoder byggda att populera avgTemp och avgHumidity
+        --  metod byggt för val av specifikt datum avgTemp
+        --  
          
          
          

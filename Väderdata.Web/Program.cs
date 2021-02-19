@@ -68,6 +68,7 @@ namespace Väderdata.Web
                         
                     }
                     DataInitializer.PopulateAvgTemp(context);
+                    DataInitializer.PopulateAvgHumidity(context);
                     context.SaveChanges();
                 }
                 catch (Exception ex)

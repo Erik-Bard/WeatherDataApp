@@ -16,7 +16,7 @@ namespace Väderdata.Web.Information
 
             • Utomhus:
 
-            ▫ Medeltemperatur för valt datum (sökmöjlighet)
+     klar   ▫ Medeltemperatur för valt datum (sökmöjlighet) 
             ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
             ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
             ▫ Sortering av minst till störst risk av mögel
@@ -25,7 +25,7 @@ namespace Väderdata.Web.Information
 
             • Inomhus:
 
-            ▫ Medeltemperatur för valt datum (sökmöjlighet)
+     klar   ▫ Medeltemperatur för valt datum (sökmöjlighet)
             ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
             ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
             ▫ Sortering av minst till störst risk av mögel
@@ -34,10 +34,10 @@ namespace Väderdata.Web.Information
             Frågor som kan komma
 
             • Val av datatyper i DB för den här typen av data.
-            • Inläsning av textfil till databasen
+     klar   • Inläsning av textfil till databasen
             • Algoritmer som räknar fram aggregerad data
-            • Meteorologiska regler för Höst, Vinter och Mögelindex
-            • Mögelrisk, hitta formel.
+     klar   • Meteorologiska regler för Höst, Vinter och Mögelindex
+     klar   • Mögelrisk, hitta formel.
             • Källkoden dokumenterad i löpande kod, med särskild stor vikt vid 
                     användandet av  algoritmer. Förklara dina val av algoritmer och 
                     datastrukturer.
