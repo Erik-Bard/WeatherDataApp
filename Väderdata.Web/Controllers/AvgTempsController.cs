@@ -62,7 +62,8 @@ namespace Väderdata.Web.Controllers
                 // => 24h
                 // => Tm=(aT07+bT13+cT19+dTx+eTn)/100   // FORMEL FÖR MEDELTEMPERATUR
                 // => SKRIV UT I WEBLÄSAREN
-                avgTemp.CalculateAvgTemp(avgTemp.SelectDate, avgTemp.Plats);
+                AvgTempInit.Calculate(_context, avgTemp.SelectDate, avgTemp.Plats);
+                //avgTemp.CalculateAvgTemp(avgTemp.SelectDate, avgTemp.Plats);
                 _context.Add(avgTemp);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -13,8 +13,9 @@ namespace Väderdata.Web.Context
         {
 
         }
-        public DbSet<AvgTemp> AvgTemp { get; set; }
+
         // DbSet's go here:
+        public DbSet<AvgTemp> AvgTemp { get; set; }
         public DbSet<CsvModelClass> CsvModelClasses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
