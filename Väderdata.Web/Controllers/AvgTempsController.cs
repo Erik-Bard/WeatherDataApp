@@ -54,10 +54,15 @@ namespace Väderdata.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SelectDate")] AvgTemp avgTemp)
+        public async Task<IActionResult> Create([Bind("Id,SelectDate,Plats")] AvgTemp avgTemp)
         {
             if (ModelState.IsValid)
             {
+                // VÄLJ DATUM
+                // => 24h
+                // => Tm=(aT07+bT13+cT19+dTx+eTn)/100   // FORMEL FÖR MEDELTEMPERATUR
+                // => SKRIV UT I WEBLÄSAREN
+                avgTemp.CalculateAvgTemp(avgTemp.SelectDate, avgTemp.Plats);
                 _context.Add(avgTemp);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

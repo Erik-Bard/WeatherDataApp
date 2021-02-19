@@ -26,8 +26,11 @@ namespace Väderdata.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AverageTemperature")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("AverageTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Plats")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SelectDate")
                         .HasColumnType("datetime2");
@@ -58,7 +61,7 @@ namespace Väderdata.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CsvModel");
+                    b.ToTable("CsvModelClasses");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Väderdata.Web.Migrations
 {
-    public partial class initMar : Migration
+    public partial class inicommit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,8 @@ namespace Väderdata.Web.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SelectDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AverageTemperature = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    AverageTemperature = table.Column<double>(type: "float", nullable: false),
+                    Plats = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -22,7 +23,7 @@ namespace Väderdata.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CsvModel",
+                name: "CsvModelClasses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -30,11 +31,11 @@ namespace Väderdata.Web.Migrations
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Plats = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Temp = table.Column<double>(type: "float", nullable: false),
-                    Luftfuktighet = table.Column<double>(type: "float", nullable: false)
+                    Luftfuktighet = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CsvModel", x => x.Id);
+                    table.PrimaryKey("PK_CsvModelClasses", x => x.Id);
                 });
         }
 
@@ -44,7 +45,7 @@ namespace Väderdata.Web.Migrations
                 name: "AvgTemp");
 
             migrationBuilder.DropTable(
-                name: "CsvModel");
+                name: "CsvModelClasses");
         }
     }
 }

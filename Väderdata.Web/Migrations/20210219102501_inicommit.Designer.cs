@@ -10,8 +10,8 @@ using Väderdata.Web.Context;
 namespace Väderdata.Web.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20210218145754_CsvInsert")]
-    partial class CsvInsert
+    [Migration("20210219102501_inicommit")]
+    partial class inicommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,11 @@ namespace Väderdata.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AverageTemperature")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("AverageTemperature")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Plats")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SelectDate")
                         .HasColumnType("datetime2");
@@ -60,7 +63,7 @@ namespace Väderdata.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CsvModel");
+                    b.ToTable("CsvModelClasses");
                 });
 #pragma warning restore 612, 618
         }
