@@ -10,22 +10,22 @@ using Väderdata.Web.Data;
 
 namespace Väderdata.Web.Controllers
 {
-    public class MeteorologiskSäsongController : Controller
+    public class AvgTempInitsController : Controller
     {
         private readonly WeatherContext _context;
 
-        public MeteorologiskSäsongController(WeatherContext context)
+        public AvgTempInitsController(WeatherContext context)
         {
             _context = context;
         }
 
-        // GET: MeteorologiskSäsong
+        // GET: AvgTempInits
         public async Task<IActionResult> Index()
         {
-            return View(await _context.WeatherSeason.ToListAsync());
+            return View(await _context.avgTempInit.ToListAsync());
         }
 
-        // GET: MeteorologiskSäsong/Details/5
+        // GET: AvgTempInits/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,41 +33,41 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var meteorologiskSäsong = await _context.WeatherSeason
+            var avgTempInit = await _context.avgTempInit
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (meteorologiskSäsong == null)
+            if (avgTempInit == null)
             {
                 return NotFound();
             }
 
-            return View(meteorologiskSäsong);
+            return View(avgTempInit);
         }
 
-        // GET: MeteorologiskSäsong/Create
+        // GET: AvgTempInits/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: MeteorologiskSäsong/Create
+        // POST: AvgTempInits/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,HöstDatum,VinterDatum")] MeteorologiskSäsong meteorologiskSäsong)
+        public async Task<IActionResult> Create([Bind("Id,SelectDate,Plats")] AvgTempInit avgTempInit)
         {
             if (ModelState.IsValid)
             {
-                var AutumnStartDate = MeteorologiskSäsong.AutumnDate(_context, meteorologiskSäsong.HöstDatum);
-                meteorologiskSäsong.HöstDatum = (DateTime)AutumnStartDate;
-                _context.Add(meteorologiskSäsong);
+                var tempDisplay = AvgTempInit.Calculate(_context, avgTempInit.SelectDate, avgTempInit.Plats);
+                avgTempInit.AverageTemperature = tempDisplay;
+                _context.Add(avgTempInit);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(meteorologiskSäsong);
+            return View(avgTempInit);
         }
 
-        // GET: MeteorologiskSäsong/Edit/5
+        // GET: AvgTempInits/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +75,22 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var meteorologiskSäsong = await _context.WeatherSeason.FindAsync(id);
-            if (meteorologiskSäsong == null)
+            var avgTempInit = await _context.avgTempInit.FindAsync(id);
+            if (avgTempInit == null)
             {
                 return NotFound();
             }
-            return View(meteorologiskSäsong);
+            return View(avgTempInit);
         }
 
-        // POST: MeteorologiskSäsong/Edit/5
+        // POST: AvgTempInits/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,HöstDatum,VinterDatum")] MeteorologiskSäsong meteorologiskSäsong)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SelectDate")] AvgTempInit avgTempInit)
         {
-            if (id != meteorologiskSäsong.Id)
+            if (id != avgTempInit.Id)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace Väderdata.Web.Controllers
             {
                 try
                 {
-                    _context.Update(meteorologiskSäsong);
+                    _context.Update(avgTempInit);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MeteorologiskSäsongExists(meteorologiskSäsong.Id))
+                    if (!AvgTempInitExists(avgTempInit.Id))
                     {
                         return NotFound();
                     }
@@ -115,10 +115,10 @@ namespace Väderdata.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(meteorologiskSäsong);
+            return View(avgTempInit);
         }
 
-        // GET: MeteorologiskSäsong/Delete/5
+        // GET: AvgTempInits/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,30 +126,30 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var meteorologiskSäsong = await _context.WeatherSeason
+            var avgTempInit = await _context.avgTempInit
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (meteorologiskSäsong == null)
+            if (avgTempInit == null)
             {
                 return NotFound();
             }
 
-            return View(meteorologiskSäsong);
+            return View(avgTempInit);
         }
 
-        // POST: MeteorologiskSäsong/Delete/5
+        // POST: AvgTempInits/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var meteorologiskSäsong = await _context.WeatherSeason.FindAsync(id);
-            _context.WeatherSeason.Remove(meteorologiskSäsong);
+            var avgTempInit = await _context.avgTempInit.FindAsync(id);
+            _context.avgTempInit.Remove(avgTempInit);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MeteorologiskSäsongExists(int id)
+        private bool AvgTempInitExists(int id)
         {
-            return _context.WeatherSeason.Any(e => e.Id == id);
+            return _context.avgTempInit.Any(e => e.Id == id);
         }
     }
 }
