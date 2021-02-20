@@ -35,7 +35,6 @@ namespace Väderdata.Web.Controllers
 
             var avgTempAndHumidity = await _context.AvgTempAndHumidities
                 .FirstOrDefaultAsync(m => m.Id == id);
-            
             if (avgTempAndHumidity == null)
             {
                 return NotFound();

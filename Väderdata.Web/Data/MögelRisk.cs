@@ -8,7 +8,6 @@ namespace Väderdata.Web.Data
     public class MögelRisk
     {
         public int Id { get; set; }
-
         public DateTime SelectDate { get; set; }
         public string Plats { get; set; }
         public string RiskFörMögel { get; set; }

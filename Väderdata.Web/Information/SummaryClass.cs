@@ -26,7 +26,8 @@ namespace Väderdata.Web
         --  start av metod för medel temperatur och LINQ har använts
         --  metoder byggda att populera avgTemp och avgHumidity
         --  metod byggt för val av specifikt datum avgTemp
-        --  
+
+
          
          
          
