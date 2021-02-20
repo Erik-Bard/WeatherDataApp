@@ -16,6 +16,9 @@ namespace Väderdata.Web.Data
         public string Plats { get; set; }
         public double AverageTemperature { get; set; }
 
+        //public int ReadOnlyId { get; set; }
+        //public ReadOnlyEnviroment readOnly { get; set; }
+
         public static double Calculate(WeatherContext context, DateTime dateTime, string Plats)
         {
             int counter = 0;

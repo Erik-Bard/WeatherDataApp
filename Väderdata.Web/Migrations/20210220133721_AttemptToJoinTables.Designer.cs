@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Väderdata.Web.Context;
 
 namespace Väderdata.Web.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    partial class WeatherContextModelSnapshot : ModelSnapshot
+    [Migration("20210220133721_AttemptToJoinTables")]
+    partial class AttemptToJoinTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,10 +59,15 @@ namespace Väderdata.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ReadOnlyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("SelectDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReadOnlyId");
 
                     b.ToTable("avgTempInit");
                 });
@@ -96,10 +103,10 @@ namespace Väderdata.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("HöstDatum")
+                    b.Property<DateTime>("HöstDatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("VinterDatum")
+                    b.Property<DateTime>("VinterDatum")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -141,6 +148,17 @@ namespace Väderdata.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ReadOnlyEnv");
+                });
+
+            modelBuilder.Entity("Väderdata.Web.Data.AvgTempInit", b =>
+                {
+                    b.HasOne("Väderdata.Web.Data.ReadOnlyEnviroment", "readOnly")
+                        .WithMany()
+                        .HasForeignKey("ReadOnlyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("readOnly");
                 });
 #pragma warning restore 612, 618
         }

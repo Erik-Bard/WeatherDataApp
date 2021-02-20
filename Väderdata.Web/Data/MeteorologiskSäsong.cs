@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Väderdata.Web.Context;
@@ -10,11 +11,13 @@ namespace Väderdata.Web.Data
     {
         public int Id { get; set; }
 
-        public DateTime HöstDatum { get; set; }
 
-        public DateTime VinterDatum { get; set; }
+        public DateTime? HöstDatum { get; set; }
 
-        public static DateTime? AutumnDate(WeatherContext context, DateTime höstDatum)
+
+        public DateTime? VinterDatum { get; set; }
+
+        public static DateTime? AutumnDate(WeatherContext context, DateTime? höstDatum)
         {
             int DateInRow = 0;
 
@@ -42,6 +45,39 @@ namespace Väderdata.Web.Data
                     return höstDatum;
                 }
                 if(temp > 10 || temp < 0)
+                {
+                    DateInRow = 0;
+                }
+            }
+            return null;
+        }
+        public static DateTime? WinterDate(WeatherContext context, DateTime? vinterDatum)
+        {
+            int DateInRow = 0;
+
+            var vinterQuery = (from p in context.AvgTempAndHumidities
+                         where p.Plats == "Ute"
+                         select p.AverageTemperature)
+                         .ToList();
+            var selectVinter = (from q in vinterQuery
+                                where q <= 0
+                               select q);
+
+            Console.WriteLine(selectVinter);
+
+            foreach (var temp in selectVinter)
+            {
+                Console.WriteLine(temp);
+                if (temp <= 0)
+                {
+                    DateInRow += 1;
+                }
+                if (DateInRow == 5)
+                {
+                    Console.WriteLine(vinterDatum);
+                    return vinterDatum;
+                }
+                if (temp > 0)
                 {
                     DateInRow = 0;
                 }

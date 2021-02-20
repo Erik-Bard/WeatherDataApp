@@ -58,8 +58,11 @@ namespace Väderdata.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var AutumnStartDate = MeteorologiskSäsong.AutumnDate(_context, meteorologiskSäsong.HöstDatum);
-                meteorologiskSäsong.HöstDatum = (DateTime)AutumnStartDate;
+                var Autumn = MeteorologiskSäsong.AutumnDate(_context, meteorologiskSäsong.HöstDatum);
+                var Winter = MeteorologiskSäsong.WinterDate(_context, meteorologiskSäsong.VinterDatum);
+
+                meteorologiskSäsong.HöstDatum = Autumn;
+                meteorologiskSäsong.VinterDatum = Winter;
                 _context.Add(meteorologiskSäsong);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
