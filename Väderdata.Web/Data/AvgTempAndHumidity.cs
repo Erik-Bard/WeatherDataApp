@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Väderdata.Web.Context;
 
 namespace Väderdata.Web.Data
 {
-    public class AvgHumidity
+    public class AvgTempAndHumidity
     {
         [Required]
         public int Id { get; set; }
@@ -14,6 +15,8 @@ namespace Väderdata.Web.Data
         public DateTime SelectDate { get; set; }
 
         public double AverageHumidity { get; set; }
+
+        public double AverageTemperature { get; set; }
 
         public string Plats { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Väderdata.Web.Data.AvgTemp>
+﻿@model IEnumerable<Väderdata.Web.Data.AvgTempAndHumidity>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +16,13 @@
                 @Html.DisplayNameFor(model => model.SelectDate)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.AverageHumidity)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.AverageTemperature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plats)
             </th>
             <th></th>
         </tr>
@@ -28,7 +34,13 @@
                 @Html.DisplayFor(modelItem => item.SelectDate)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.AverageHumidity)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.AverageTemperature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plats)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

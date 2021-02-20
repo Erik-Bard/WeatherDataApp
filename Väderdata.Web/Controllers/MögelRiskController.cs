@@ -10,22 +10,22 @@ using Väderdata.Web.Data;
 
 namespace Väderdata.Web.Controllers
 {
-    public class AvgTempsController : Controller
+    public class MögelRiskController : Controller
     {
         private readonly WeatherContext _context;
 
-        public AvgTempsController(WeatherContext context)
+        public MögelRiskController(WeatherContext context)
         {
             _context = context;
         }
 
-        // GET: AvgTemps
+        // GET: MögelRisk
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AvgTemp.ToListAsync());
+            return View(await _context.MögelRisks.ToListAsync());
         }
 
-        // GET: AvgTemps/Details/5
+        // GET: MögelRisk/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,46 +33,39 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var avgTemp = await _context.AvgTemp
+            var mögelRisk = await _context.MögelRisks
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (avgTemp == null)
+            if (mögelRisk == null)
             {
                 return NotFound();
             }
 
-            return View(avgTemp);
+            return View(mögelRisk);
         }
 
-        // GET: AvgTemps/Create
+        // GET: MögelRisk/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: AvgTemps/Create
+        // POST: MögelRisk/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SelectDate,Plats")] AvgTemp avgTemp)
+        public async Task<IActionResult> Create([Bind("Id,SelectDate,Plats,RiskFörMögel")] MögelRisk mögelRisk)
         {
             if (ModelState.IsValid)
             {
-                // VÄLJ DATUM
-                // => 24h
-                // => Tm=(aT07+bT13+cT19+dTx+eTn)/100   // FORMEL FÖR MEDELTEMPERATUR
-                // => SKRIV UT I WEBLÄSAREN
-                var temp = AvgTempInit.Calculate(_context, avgTemp.SelectDate, avgTemp.Plats);
-                avgTemp.AverageTemperature = temp;
-                //avgTemp.CalculateAvgTemp(avgTemp.SelectDate, avgTemp.Plats);
-                _context.Add(avgTemp);
+                _context.Add(mögelRisk);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(avgTemp);
+            return View(mögelRisk);
         }
 
-        // GET: AvgTemps/Edit/5
+        // GET: MögelRisk/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,22 +73,22 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var avgTemp = await _context.AvgTemp.FindAsync(id);
-            if (avgTemp == null)
+            var mögelRisk = await _context.MögelRisks.FindAsync(id);
+            if (mögelRisk == null)
             {
                 return NotFound();
             }
-            return View(avgTemp);
+            return View(mögelRisk);
         }
 
-        // POST: AvgTemps/Edit/5
+        // POST: MögelRisk/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SelectDate")] AvgTemp avgTemp)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SelectDate,Plats,RiskFörMögel")] MögelRisk mögelRisk)
         {
-            if (id != avgTemp.Id)
+            if (id != mögelRisk.Id)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace Väderdata.Web.Controllers
             {
                 try
                 {
-                    _context.Update(avgTemp);
+                    _context.Update(mögelRisk);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AvgTempExists(avgTemp.Id))
+                    if (!MögelRiskExists(mögelRisk.Id))
                     {
                         return NotFound();
                     }
@@ -120,10 +113,10 @@ namespace Väderdata.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(avgTemp);
+            return View(mögelRisk);
         }
 
-        // GET: AvgTemps/Delete/5
+        // GET: MögelRisk/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,30 +124,30 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var avgTemp = await _context.AvgTemp
+            var mögelRisk = await _context.MögelRisks
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (avgTemp == null)
+            if (mögelRisk == null)
             {
                 return NotFound();
             }
 
-            return View(avgTemp);
+            return View(mögelRisk);
         }
 
-        // POST: AvgTemps/Delete/5
+        // POST: MögelRisk/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var avgTemp = await _context.AvgTemp.FindAsync(id);
-            _context.AvgTemp.Remove(avgTemp);
+            var mögelRisk = await _context.MögelRisks.FindAsync(id);
+            _context.MögelRisks.Remove(mögelRisk);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AvgTempExists(int id)
+        private bool MögelRiskExists(int id)
         {
-            return _context.AvgTemp.Any(e => e.Id == id);
+            return _context.MögelRisks.Any(e => e.Id == id);
         }
     }
 }

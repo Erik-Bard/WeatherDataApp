@@ -18,7 +18,7 @@ namespace Väderdata.Web.Data
         {
             int DateInRow = 0;
 
-            var query = (from p in context.AvgTemp
+            var query = (from p in context.AvgTempAndHumidities
                          where p.Plats == "Ute"
                          select p.AverageTemperature)
                          .ToList();
@@ -41,7 +41,7 @@ namespace Väderdata.Web.Data
                     Console.WriteLine(höstDatum);
                     return höstDatum;
                 }
-                if(temp > 10 && temp < 0)
+                if(temp > 10 || temp < 0)
                 {
                     DateInRow = 0;
                 }

@@ -20,15 +20,15 @@ namespace Väderdata.Web.Context
         {
             TextReader reader = new StreamReader("TempFuktData.csv");
             var csvReader = new CsvReader(reader, System.Globalization.CultureInfo.CreateSpecificCulture("sv-se"));
-            var records = csvReader.GetRecords<CsvModelClass>();
-
+            csvReader.GetRecords<CsvModelClass>();
 
             CsvParserOptions csvParserOptions = new CsvParserOptions(true, ',');
             var csvParser = new CsvParser<CsvModelClass>(csvParserOptions, new CsvReadMapper());
-            var entries = csvParser.ReadFromFile("TempFuktData.csv", Encoding.UTF8);
+            csvParser.ReadFromFile("TempFuktData.csv", Encoding.UTF8);
             var fixedEntry = csvParser
                         .ReadFromFile(csv_file_path, Encoding.ASCII)
                         .ToList();
+            reader.Dispose();
             return fixedEntry;
         }
     }

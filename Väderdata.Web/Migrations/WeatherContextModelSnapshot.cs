@@ -19,7 +19,7 @@ namespace Väderdata.Web.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Väderdata.Web.Data.AvgHumidity", b =>
+            modelBuilder.Entity("Väderdata.Web.Data.AvgTempAndHumidity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -28,24 +28,6 @@ namespace Väderdata.Web.Migrations
 
                     b.Property<double>("AverageHumidity")
                         .HasColumnType("float");
-
-                    b.Property<string>("Plats")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SelectDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AvgHumidities");
-                });
-
-            modelBuilder.Entity("Väderdata.Web.Data.AvgTemp", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("AverageTemperature")
                         .HasColumnType("float");
@@ -58,7 +40,7 @@ namespace Väderdata.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AvgTemp");
+                    b.ToTable("AvgTempAndHumidities");
                 });
 
             modelBuilder.Entity("Väderdata.Web.Data.CsvModelClass", b =>
@@ -110,14 +92,14 @@ namespace Väderdata.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("AvgFuktighet")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Plats")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("AvgTemperature")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("RiskFörMögel")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RiskFörMögel")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("SelectDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

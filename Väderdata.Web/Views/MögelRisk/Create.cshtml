@@ -1,4 +1,4 @@
-﻿@model Väderdata.Web.Data.AvgTemp
+﻿@model Väderdata.Web.Data.MögelRisk
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>AvgTemp</h4>
+<h4>MögelRisk</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,10 +22,11 @@
                 <input asp-for="Plats" class="form-control" />
                 <span asp-validation-for="Plats" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Plats" class="control-label"></label>
-                <select asp-for="Plats" class="form-control" asp-items="ViewBag.Plats"></select>
-            </div>*@
+            <div class="form-group">
+                <label asp-for="RiskFörMögel" class="control-label"></label>
+                <input asp-for="RiskFörMögel" class="form-control" />
+                <span asp-validation-for="RiskFörMögel" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

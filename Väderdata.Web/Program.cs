@@ -26,50 +26,8 @@ namespace Väderdata.Web
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<WeatherContext>();                             
-                    //CSVMarcus.ReadCsv();
-                    var read = CsvReadHelper.Reader();
-                    // Ensure the DB exists and doesnt have any data in the table we want to populate
-                    context.Database.EnsureCreated();
-                    
-                    if (context.CsvModelClasses.Any())
-                    {
-                        Console.WriteLine("\nData already exists in database. Please remove old data before inserting new.");
-                    }
-                    else
-                    {
-                        if (read == null)
-                        {
-                            Console.WriteLine("\n\nThis is the end of the sequence");
-                        }
-                        else
-                        {
-                            int counter = 1;
-                            foreach (var item in read)
-                            {
-                                if (item.Error != null)
-                                {
-                                    //Console.WriteLine("NEJ");
-                                }
-                                else
-                                {
-                                    //Console.WriteLine(
-                                    //                  $"{counter}," +
-                                    //                  $"DATE:{item.Result.Datum}," +
-                                    //                  $"LOC:{item.Result.Plats}," +
-                                    //                  $"TEMP:{item.Result.Temp}," +
-                                    //                  $"MOIST:{item.Result.Luftfuktighet}");
-                                    counter++;
-                                    context.CsvModelClasses.Add(item.Result);
-                                }
-                            }
-                        }
-                        context.SaveChanges();
-                        
-                    }
-                    DataInitializer.PopulateAvgTemp(context);
-                    DataInitializer.PopulateAvgHumidity(context);
-                    context.SaveChanges();
+                    var context = services.GetRequiredService<WeatherContext>();
+                    DataInitializer.DatabaseStarter(context);
                 }
                 catch (Exception ex)
                 {
@@ -79,7 +37,6 @@ namespace Väderdata.Web
             }
             host.Run();
         }
-
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

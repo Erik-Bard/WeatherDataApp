@@ -20,7 +20,7 @@ namespace Väderdata.Web.Information
             ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
             ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
             ▫ Sortering av minst till störst risk av mögel
-            ▫ Datum för meteorologisk Höst
+     klar   ▫ Datum för meteorologisk Höst
             ▫ Datum för meteorologisk Vinter (OBS! Vintern 2016 var mild)
 
             • Inomhus:
@@ -47,7 +47,7 @@ namespace Väderdata.Web.Information
          
          
 
-        VG
+     VG
 
             ▫ Hur länge är balkongdörren öppen per dag, och sorterat på detta.
                  Antagandet är att om balkongdörren öppnas så sjunker innertemperaturen lite.
