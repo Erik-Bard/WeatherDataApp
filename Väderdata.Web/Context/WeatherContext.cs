@@ -21,6 +21,7 @@ namespace Väderdata.Web.Context
 
         public DbSet<MögelRisk> MögelRisks { get; set; }
         public DbSet<MeteorologiskSäsong> WeatherSeason { get; set; }
+        public DbSet<AvgTempInit> avgTempInit { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
