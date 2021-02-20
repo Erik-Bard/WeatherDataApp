@@ -8,18 +8,9 @@ namespace Väderdata.Web.Data
     public class MögelRisk
     {
         public int Id { get; set; }
-
         public DateTime SelectDate { get; set; }
-        //public double AvgTemperature { get; set; }
-
-        //public double AvgFuktighet { get; set; }
         public string Plats { get; set; }
         public string RiskFörMögel { get; set; }
-
-
-
-
-
 
         public static string MögelText(string mould)
         {
