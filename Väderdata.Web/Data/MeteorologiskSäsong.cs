@@ -11,11 +11,12 @@ namespace Väderdata.Web.Data
     {
         public int Id { get; set; }
 
-
+        public string? HöstStart { get; set; }
         public DateTime? HöstDatum { get; set; }
 
-
+        public string? VinterStart { get; set; }
         public DateTime? VinterDatum { get; set; }
+
 
         public static DateTime? AutumnDate(WeatherContext context, DateTime? höstDatum)
         {

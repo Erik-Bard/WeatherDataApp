@@ -45,14 +45,14 @@ namespace Väderdata.Web.Context
                         counterListHum.Add(counterHumi);
                     }
                     var total = queryHumid.Sum();
-                    var avgHum = total / counterListHum.Count();
+                    var avgHum = Math.Round((total / counterListHum.Count()), 2);
                     foreach (var item in queryTemp)
                     {
                         counterTemp++;
                         counterListTemp.Add(counterTemp);
                     }
                     var total2 = queryTemp.Sum();
-                    var avgTemp = total2 / counterListTemp.Count();
+                    var avgTemp = Math.Round((total2 / counterListTemp.Count()), 2);
                     var avgTemps = new AvgTempAndHumidity { Plats = Plats, AverageTemperature = avgTemp, AverageHumidity = avgHum, SelectDate = StartDate };
                     context.AvgTempAndHumidities.Add(avgTemps);
                     StartDate = StartDate.AddDays(1);
@@ -125,7 +125,7 @@ namespace Väderdata.Web.Context
                     }
 
                     string MögelFakta = MögelRisk.MögelText(mouldRisk.ToString());
-                    var _MögelRisk = new MögelRisk { SelectDate = day, RiskFörMögel = MögelFakta, Plats = position };
+                    var _MögelRisk = new MögelRisk { SelectDate = day, RiskFörMögel = MögelFakta, Plats = position, MögelIndex = mouldRisk };
                     context.MögelRisks.Add(_MögelRisk);
                 }
             }

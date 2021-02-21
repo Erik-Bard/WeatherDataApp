@@ -12,6 +12,8 @@ namespace Väderdata.Web.Data
         public DateTime SelectDate { get; set; }
         public string Plats { get; set; }
         public string RiskFörMögel { get; set; }
+        public int MögelIndex { get; set; }
+
 
         public static string MögelText(string mould)
         {
@@ -34,10 +36,10 @@ namespace Väderdata.Web.Data
             }
             return mould;
         }
-        public static IQueryable SortByMögelRisk(WeatherContext context)
+        public static IQueryable<MögelRisk> SortByMögelRisk(WeatherContext context)
         {
             var MögelSort = from T in context.MögelRisks
-                           orderby T.RiskFörMögel descending
+                           orderby T.MögelIndex ascending
                            select T;
             return MögelSort;
 

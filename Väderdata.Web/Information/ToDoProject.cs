@@ -17,18 +17,18 @@ namespace Väderdata.Web.Information
             • Utomhus:
 
      klar   ▫ Medeltemperatur för valt datum (sökmöjlighet) 
-            ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
-            ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
-            ▫ Sortering av minst till störst risk av mögel
+     klar   ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
+     klar   ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
+     klar   ▫ Sortering av minst till störst risk av mögel
      klar   ▫ Datum för meteorologisk Höst
      klar   ▫ Datum för meteorologisk Vinter (OBS! Vintern 2016 var mild)
 
             • Inomhus:
 
      klar   ▫ Medeltemperatur för valt datum (sökmöjlighet)
-            ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
-            ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
-            ▫ Sortering av minst till störst risk av mögel
+     klar   ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
+     klar   ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
+     klar   ▫ Sortering av minst till störst risk av mögel
 
 
             Frågor som kan komma
