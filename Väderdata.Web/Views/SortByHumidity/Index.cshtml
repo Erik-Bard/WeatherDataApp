@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Väderdata.Web.Data.AvgTempAndHumidity>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AverageHumidity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plats)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelectDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageHumidity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plats)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

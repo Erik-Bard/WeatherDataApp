@@ -20,21 +20,20 @@ namespace Väderdata.Web.Data
 
         public string Plats { get; set; }
 
-        public static IQueryable SortByHumidity(WeatherContext context)
+        public static IQueryable<AvgTempAndHumidity> SortByHumidity(WeatherContext context)
         {
-            var HumSort = from H in context.AvgTempAndHumidities
+            var HumSort = (from H in context.AvgTempAndHumidities
                           orderby H.AverageHumidity ascending
-                          select H;
+                          select H);
             return HumSort;
                          
         }
-        public static IQueryable SortByTemperature(WeatherContext context)
+        public static IQueryable<AvgTempAndHumidity> SortByTemperature(WeatherContext context)
         {
-            var TempSort = from T in context.AvgTempAndHumidities
-                           orderby T.AverageTemperature descending
-                           select T;
+            var TempSort = (from T in context.AvgTempAndHumidities
+                           orderby T.AverageTemperature ascending
+                           select T);
             return TempSort;
-
         }
     }
 }

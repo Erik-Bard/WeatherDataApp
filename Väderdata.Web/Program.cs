@@ -30,7 +30,6 @@ namespace Väderdata.Web
                     var context = services.GetRequiredService<WeatherContext>();
                     DataInitializer.DatabaseStarter(context);
                     ReadOnlyEnviroment.PopulateIfEmpty(context);
-                    //AvgTempInit.ReturnView(context);
                 }
                 catch (Exception ex)
                 {
