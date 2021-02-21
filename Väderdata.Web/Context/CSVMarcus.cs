@@ -13,21 +13,32 @@
 //    internal class CSVMarcus
 //    {
 //        private static string csv_file_path = "TempFuktData.csv";
-
-//        //private static WeatherContext _Context = new WeatherContext();
-//        public static void ReadCsv()
+//        public static void ReadCsv(WeatherContext context)
 //        {
 //            StreamReader sr = new StreamReader(csv_file_path);
-//            string Line = sr.ReadLine();
+//            string Line = sr.ReadLine().ToString();
 //            List<CsvModelClass> WxInfo = new List<CsvModelClass>();
+//            int x = 0;
 //            while (Line != null)
 //            {
-//                var s = CreateInfo(Line);
-//                WxInfo.Add(s);
+                
+//                var v = CreateInfo(Line);
+//                Console.WriteLine(x);
+//                WxInfo.Add(v);
+//                var t = from W in WxInfo
+//                        orderby W.Datum ascending
+//                        select W;
+//                x++;
+//                Line = sr.ReadLine();
 //            }
-//            foreach (var item in WxInfo)
+//            sr.Close();
+//            var csv = from c in WxInfo
+//                      orderby c.Datum ascending
+//                      select c;
+//            foreach (var item in csv)
 //            {
-//                _Context.CsvModelClasses.Add(item);
+//                context.CsvModelClasses.Add(item);
+//                context.SaveChanges();
 //            }
 //        }
 //        private static CsvModelClass CreateInfo(string line)
@@ -35,9 +46,12 @@
 //            CultureInfo invC = CultureInfo.InvariantCulture;
 //            string[] info = line.Split(',');
 //            DateTime Date = DateTime.Parse(info[0]);
+//            string position = info[1].ToString();
 //            double temp = double.Parse(info[2], invC);
+//            Console.WriteLine(temp);
+//            Console.WriteLine(Date);
 //            double humid = double.Parse(info[3]);
-//            CsvModelClass WXData = new CsvModelClass { Datum = Date, Plats = info[1], Temp = temp, Luftfuktighet = humid };
+//            CsvModelClass WXData = new CsvModelClass { Datum = Date, Plats = position, Temp = temp, Luftfuktighet = humid };
 //            return WXData;
 //        }
 //    }

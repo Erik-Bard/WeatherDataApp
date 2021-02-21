@@ -33,9 +33,9 @@ namespace Väderdata.Web.Information
 
             Frågor som kan komma
 
-            • Val av datatyper i DB för den här typen av data.
+     klar   • Val av datatyper i DB för den här typen av data.
      klar   • Inläsning av textfil till databasen
-            • Algoritmer som räknar fram aggregerad data
+     klar   • Algoritmer som räknar fram aggregerad data
      klar   • Meteorologiska regler för Höst, Vinter och Mögelindex
      klar   • Mögelrisk, hitta formel.
             • Källkoden dokumenterad i löpande kod, med särskild stor vikt vid 

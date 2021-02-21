@@ -149,7 +149,7 @@ namespace Väderdata.Web.Context
                 }
                 else
                 {
-                    
+
                     foreach (var item in read)
                     {
                         if (item.Error != null)
@@ -164,6 +164,7 @@ namespace Väderdata.Web.Context
                 }
                 context.SaveChanges();
             }
+            //CSVMarcus.ReadCsv(context);
 
             if (!context.AvgTempAndHumidities.Any())
             {
