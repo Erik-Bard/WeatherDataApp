@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Väderdata.Web.Context;
 
 namespace Väderdata.Web.Data
 {
@@ -32,6 +33,14 @@ namespace Väderdata.Web.Data
                 mould = "Hög risk för mögel växt inom 4 veckor";
             }
             return mould;
+        }
+        public static IQueryable SortByMögelRisk(WeatherContext context)
+        {
+            var MögelSort = from T in context.MögelRisks
+                           orderby T.RiskFörMögel descending
+                           select T;
+            return MögelSort;
+
         }
     }
 

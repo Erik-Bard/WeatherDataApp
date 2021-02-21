@@ -21,7 +21,7 @@ namespace Väderdata.Web.Information
             ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
             ▫ Sortering av minst till störst risk av mögel
      klar   ▫ Datum för meteorologisk Höst
-            ▫ Datum för meteorologisk Vinter (OBS! Vintern 2016 var mild)
+     klar   ▫ Datum för meteorologisk Vinter (OBS! Vintern 2016 var mild)
 
             • Inomhus:
 
