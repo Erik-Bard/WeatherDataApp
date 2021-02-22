@@ -19,24 +19,33 @@ namespace Väderdata.Web.Data
             DateTime closed = close;
             TimeSpan totalDifference = closed - opened;
             // Retrieve correct date
-            var query = (from a in context.AvgTempAndHumidities
-                         where a.SelectDate.Month == opened.Month
-                         where a.SelectDate.Day == opened.Day
-                         select a);
-            var queryFollowing = (from e in query
-                                  where e.Plats == "Inne"
-                                  select e.AverageTemperature).ToList();
-            var querycompare = (from e in query
-                                where e.Plats == "Ute"
-                                select e.AverageTemperature).ToList();
-            var calc = queryFollowing[0] - querycompare[0];
-            Console.WriteLine(calc);
-            // Calculate difference between both temps
-            Console.WriteLine(querycompare[0]);
+            var query = (from a in context.CsvModelClasses
+                         where a.Datum.Month == opened.Month
+                         where a.Datum.Day == opened.Day
+                         //where a.Datum.Hour == opened.Hour
+                         //where a.Datum.Minute == opened.Minute
+                         select a).ToList();
+            // Compare to difference in time
+            var queryhelvete = (from e in query
+                                where e.Plats == "Inne"
+                                select e.Temp).ToList();
+            var querysakhelvete = (from o in query
+                                   where o.Plats == "Ute"
+                                   select o.Temp).ToList();
 
-            foreach (var item in context.AvgTempAndHumidities)
+            // JÄMFÖRA ???? HUR ???
+
+
+            // Calculate difference between both temps
+
+            //foreach (var item in query)
+            //{
+            //    Console.WriteLine($"{item.Datum}, {item.Plats}, {item.Temp}");
+            //}
+
+            foreach (var thing in queryhelvete)
             {
-                Console.WriteLine(item.AverageTemperature);
+                Console.WriteLine($"{thing}");
             }
 
             return totalDifference;
