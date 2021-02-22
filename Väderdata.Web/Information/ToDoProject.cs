@@ -8,10 +8,8 @@ namespace Väderdata.Web.Information
     public class ToDoProject
     {
         /*
-         * Datum,Plats,Temp,Luftfuktighet
+          Datum,Plats,Temp,Luftfuktighet
          G
-
-
             Följande information skall kunna visas
 
             • Utomhus:
@@ -48,7 +46,6 @@ namespace Väderdata.Web.Information
          
 
      VG
-
             ▫ Hur länge är balkongdörren öppen per dag, och sorterat på detta.
                  Antagandet är att om balkongdörren öppnas så sjunker innertemperaturen lite.
                  Yttertemperaturen höjs också lite grann, då termometern sitter nära 
