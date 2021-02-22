@@ -58,6 +58,8 @@ namespace Väderdata.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                TimeSpan timeDifference = BalconyDoor.CalculateOpenTime(_context, balconyDoor.OpeningDoor, balconyDoor.ClosingDoor);
+                balconyDoor.TimeSpan = timeDifference;
                 _context.Add(balconyDoor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

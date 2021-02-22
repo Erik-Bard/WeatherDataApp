@@ -18,6 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ClosingDoor)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeSpan)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +32,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ClosingDoor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeSpan)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
