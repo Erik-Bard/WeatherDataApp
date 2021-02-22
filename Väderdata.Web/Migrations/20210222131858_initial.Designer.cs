@@ -10,8 +10,8 @@ using Väderdata.Web.Context;
 namespace Väderdata.Web.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20210222095246_init")]
-    partial class init
+    [Migration("20210222131858_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

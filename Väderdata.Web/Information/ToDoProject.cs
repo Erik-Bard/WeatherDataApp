@@ -41,7 +41,7 @@ namespace Väderdata.Web.Information
             • Källkoden dokumenterad i löpande kod, med särskild stor vikt vid 
                     användandet av  algoritmer. Förklara dina val av algoritmer och 
                     datastrukturer.
-            • Jämför gärna de resultat du får i din app med andra elever, för att dela 
+     klar   • Jämför gärna de resultat du får i din app med andra elever, för att dela 
                     med er av hur  ni tänkt.
      NEJ    • Samtliga krav och specifikationer kan ändras under arbetets gång.
          

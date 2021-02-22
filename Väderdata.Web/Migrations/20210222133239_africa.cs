@@ -2,7 +2,7 @@
 
 namespace Väderdata.Web.Migrations
 {
-    public partial class data : Migration
+    public partial class africa : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

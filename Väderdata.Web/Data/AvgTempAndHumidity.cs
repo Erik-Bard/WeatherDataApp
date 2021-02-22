@@ -47,15 +47,12 @@ namespace Väderdata.Web.Data
                 {
                     int counterTemp = 0;
                     int counterHumi = 0;
-                    List<float> counterListHum = new List<float>();
-                    List<float> counterListTemp = new List<float>();
+                    List<double> counterListHum = new List<double>();
+                    List<double> counterListTemp = new List<double>();
                     var CSV = context.CsvModelClasses.ToList();
-                    var CSVSort = from p in CSV
-                                  orderby p.Datum
-                                  select p;
-                    var datumSelect = (from p in CSVSort
-                                       where p.Datum.Day == StartDate.Day
-                                       select p);
+                    var datumSelect = (from m in CSV
+                                       where m.Datum.DayOfYear == StartDate.DayOfYear
+                                       select m).ToList();
                     var platsSelect = (from e in datumSelect
                                        where e.Plats == Plats
                                        select e).ToList();
@@ -63,22 +60,25 @@ namespace Väderdata.Web.Data
                                      select k.Temp).ToList();
                     var queryHumid = (from k in platsSelect
                                       select k.Luftfuktighet).ToList();
-                    foreach (var item in queryHumid)
+                    if(queryTemp.Count() != 0 || queryHumid.Count() != 0)
                     {
-                        counterHumi++;
-                        counterListHum.Add(counterHumi);
+                        foreach (var item in queryHumid)
+                        {
+                            counterHumi++;
+                            counterListHum.Add(counterHumi);
+                        }
+                        double total = queryHumid.Sum();
+                        double avgHum = Math.Round((total / counterListHum.Count()), 2);
+                        foreach (var item in queryTemp)
+                        {
+                            counterTemp++;
+                            counterListTemp.Add(counterTemp);
+                        }
+                        double total2 = queryTemp.Sum();
+                        double avgTemp = Math.Round((total2 / counterListTemp.Count()), 2);
+                        AvgTempAndHumidity avgTemps = new AvgTempAndHumidity { Plats = Plats, AverageTemperature = avgTemp, AverageHumidity = avgHum, SelectDate = StartDate };
+                        context.AvgTempAndHumidities.Add(avgTemps);
                     }
-                    var total = queryHumid.Sum();
-                    var avgHum = Math.Round((total / counterListHum.Count()), 2);
-                    foreach (var item in queryTemp)
-                    {
-                        counterTemp++;
-                        counterListTemp.Add(counterTemp);
-                    }
-                    var total2 = queryTemp.Sum();
-                    var avgTemp = Math.Round((total2 / counterListTemp.Count()), 2);
-                    var avgTemps = new AvgTempAndHumidity { Plats = Plats, AverageTemperature = avgTemp, AverageHumidity = avgHum, SelectDate = StartDate };
-                    context.AvgTempAndHumidities.Add(avgTemps);
                     StartDate = StartDate.AddDays(1);
                 }
                 if (Plats == "Inne")
