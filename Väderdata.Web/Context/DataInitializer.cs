@@ -149,7 +149,6 @@ namespace Väderdata.Web.Context
                 }
                 else
                 {
-                    
                     foreach (var item in read)
                     {
                         if (item.Error != null)
