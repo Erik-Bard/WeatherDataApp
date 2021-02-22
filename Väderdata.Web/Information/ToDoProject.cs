@@ -43,7 +43,7 @@ namespace Väderdata.Web.Information
                     datastrukturer.
             • Jämför gärna de resultat du får i din app med andra elever, för att dela 
                     med er av hur  ni tänkt.
-            • Samtliga krav och specifikationer kan ändras under arbetets gång.
+     NEJ    • Samtliga krav och specifikationer kan ändras under arbetets gång.
          
          
 

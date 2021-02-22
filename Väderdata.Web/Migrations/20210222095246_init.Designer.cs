@@ -10,7 +10,7 @@ using Väderdata.Web.Context;
 namespace Väderdata.Web.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20210221145142_init")]
+    [Migration("20210222095246_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,8 +101,14 @@ namespace Väderdata.Web.Migrations
                     b.Property<DateTime?>("HöstDatum")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("HöstStart")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("VinterDatum")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("VinterStart")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -6,7 +6,9 @@ using TinyCsvParser.Mapping;
 using Väderdata.Web.Data;
 
 namespace Väderdata.Web.Context
-{
+                        {/// <summary>
+                        ///  Här mappas csv filen till rätt del i databasen
+                        /// </summary>
     public class CsvReadMapper : CsvMapping<CsvModelClass>
     {
         public CsvReadMapper() : base()

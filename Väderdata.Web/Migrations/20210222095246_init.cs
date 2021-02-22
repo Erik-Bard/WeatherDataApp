@@ -89,7 +89,9 @@ namespace Väderdata.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    HöstStart = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HöstDatum = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    VinterStart = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VinterDatum = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
