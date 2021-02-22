@@ -54,13 +54,28 @@ namespace Väderdata.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,HöstDatum,VinterDatum")] MeteorologiskSäsong meteorologiskSäsong)
+        public async Task<IActionResult> Create([Bind("Id,HöstStart,HöstDatum,VinterStart,VinterDatum")] MeteorologiskSäsong meteorologiskSäsong)
         {
             if (ModelState.IsValid)
             {
                 var Autumn = MeteorologiskSäsong.AutumnDate(_context, meteorologiskSäsong.HöstDatum);
                 var Winter = MeteorologiskSäsong.WinterDate(_context, meteorologiskSäsong.VinterDatum);
-
+                if(Autumn == null)
+                {
+                    meteorologiskSäsong.HöstStart = "Hösten Kom aldrig detta år";
+                }
+                if( Winter == null)
+                {
+                    meteorologiskSäsong.VinterStart = "Vintern Kom aldrig detta år";
+                }
+                if(Winter != null )
+                {
+                    meteorologiskSäsong.VinterStart = "Vintern Faller på detta datum i år";
+                }
+                if (Autumn != null)
+                {
+                    meteorologiskSäsong.HöstStart = "Hösten Faller på detta datum i år";
+                }
                 meteorologiskSäsong.HöstDatum = Autumn;
                 meteorologiskSäsong.VinterDatum = Winter;
                 _context.Add(meteorologiskSäsong);

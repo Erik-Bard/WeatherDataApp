@@ -28,7 +28,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SelectDate)
+                @Html.DisplayFor(modelItem => item.SelectDate, "{0:yyyy-MM-dd}")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AverageTemperature)

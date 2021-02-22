@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Väderdata.Web.Data.MeteorologiskSäsong>
+﻿@model IEnumerable<Väderdata.Web.Data.MögelRisk>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.HöstStart)
+                @Html.DisplayNameFor(model => model.SelectDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HöstDatum)
+                @Html.DisplayNameFor(model => model.Plats)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VinterStart)
+                @Html.DisplayNameFor(model => model.RiskFörMögel)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VinterDatum)
+                @Html.DisplayNameFor(model => model.MögelIndex)
             </th>
             <th></th>
         </tr>
@@ -31,16 +31,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.HöstStart)
+                @Html.DisplayFor(modelItem => item.SelectDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HöstDatum)
+                @Html.DisplayFor(modelItem => item.Plats)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VinterStart)
+                @Html.DisplayFor(modelItem => item.RiskFörMögel)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VinterDatum)
+                @Html.DisplayFor(modelItem => item.MögelIndex)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

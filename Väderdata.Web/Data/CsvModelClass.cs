@@ -12,6 +12,6 @@ namespace Väderdata.Web.Data
         public DateTime Datum { get; set; }
         public string Plats { get; set; }
         public double Temp { get; set; }
-        public int Luftfuktighet { get; set; }
+        public double Luftfuktighet { get; set; }
     }
 }

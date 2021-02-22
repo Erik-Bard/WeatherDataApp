@@ -27,7 +27,9 @@ namespace Väderdata.Web
                 var services = scope.ServiceProvider;
                 try
                 {
+                    // Här hämtar vi allt som krävs från databasen
                     var context = services.GetRequiredService<WeatherContext>();
+                    // här kallar vi på databas initiering där programmet kollar om datan finns och lägger till om inte
                     DataInitializer.DatabaseStarter(context);
                     ReadOnlyEnviroment.PopulateIfEmpty(context);
                 }
@@ -37,6 +39,7 @@ namespace Väderdata.Web
                     logger.LogError(ex, "Fel vid initialisering av databasen");
                 }
             }
+            // här startar programmet
             host.Run();
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Väderdata.Web.Migrations
 {
-    public partial class erik : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,6 +24,21 @@ namespace Väderdata.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "avgTempInit",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SelectDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Plats = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AverageTemperature = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_avgTempInit", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CsvModelClass",
                 columns: table => new
                 {
@@ -32,7 +47,7 @@ namespace Väderdata.Web.Migrations
                     Datum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Plats = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Temp = table.Column<double>(type: "float", nullable: false),
-                    Luftfuktighet = table.Column<int>(type: "int", nullable: false)
+                    Luftfuktighet = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,11 +62,25 @@ namespace Väderdata.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SelectDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Plats = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RiskFörMögel = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    RiskFörMögel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MögelIndex = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MögelRisk", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReadOnlyEnv",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Plats = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReadOnlyEnv", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,8 +89,10 @@ namespace Väderdata.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HöstDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    VinterDatum = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    HöstStart = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HöstDatum = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    VinterStart = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VinterDatum = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -75,10 +106,16 @@ namespace Väderdata.Web.Migrations
                 name: "AvgTempAndHumidities");
 
             migrationBuilder.DropTable(
+                name: "avgTempInit");
+
+            migrationBuilder.DropTable(
                 name: "CsvModelClass");
 
             migrationBuilder.DropTable(
                 name: "MögelRisk");
+
+            migrationBuilder.DropTable(
+                name: "ReadOnlyEnv");
 
             migrationBuilder.DropTable(
                 name: "WeatherSeason");

@@ -17,33 +17,33 @@ namespace Väderdata.Web.Information
             • Utomhus:
 
      klar   ▫ Medeltemperatur för valt datum (sökmöjlighet) 
-            ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
-            ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
-            ▫ Sortering av minst till störst risk av mögel
+     klar   ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
+     klar   ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
+     klar   ▫ Sortering av minst till störst risk av mögel
      klar   ▫ Datum för meteorologisk Höst
      klar   ▫ Datum för meteorologisk Vinter (OBS! Vintern 2016 var mild)
 
             • Inomhus:
 
      klar   ▫ Medeltemperatur för valt datum (sökmöjlighet)
-            ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
-            ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
-            ▫ Sortering av minst till störst risk av mögel
+     klar   ▫ Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag
+     klar   ▫ Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag
+     klar   ▫ Sortering av minst till störst risk av mögel
 
 
             Frågor som kan komma
 
-            • Val av datatyper i DB för den här typen av data.
+     klar   • Val av datatyper i DB för den här typen av data.
      klar   • Inläsning av textfil till databasen
-            • Algoritmer som räknar fram aggregerad data
+     klar   • Algoritmer som räknar fram aggregerad data
      klar   • Meteorologiska regler för Höst, Vinter och Mögelindex
      klar   • Mögelrisk, hitta formel.
             • Källkoden dokumenterad i löpande kod, med särskild stor vikt vid 
                     användandet av  algoritmer. Förklara dina val av algoritmer och 
                     datastrukturer.
-            • Jämför gärna de resultat du får i din app med andra elever, för att dela 
+     klar   • Jämför gärna de resultat du får i din app med andra elever, för att dela 
                     med er av hur  ni tänkt.
-            • Samtliga krav och specifikationer kan ändras under arbetets gång.
+     NEJ    • Samtliga krav och specifikationer kan ändras under arbetets gång.
          
          
 

@@ -75,8 +75,8 @@ namespace Väderdata.Web.Migrations
                     b.Property<DateTime>("Datum")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Luftfuktighet")
-                        .HasColumnType("int");
+                    b.Property<double>("Luftfuktighet")
+                        .HasColumnType("float");
 
                     b.Property<string>("Plats")
                         .HasColumnType("nvarchar(max)");
@@ -99,8 +99,14 @@ namespace Väderdata.Web.Migrations
                     b.Property<DateTime?>("HöstDatum")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("HöstStart")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("VinterDatum")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("VinterStart")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -113,6 +119,9 @@ namespace Väderdata.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MögelIndex")
+                        .HasColumnType("int");
 
                     b.Property<string>("Plats")
                         .HasColumnType("nvarchar(max)");

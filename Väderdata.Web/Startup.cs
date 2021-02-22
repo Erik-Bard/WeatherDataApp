@@ -25,6 +25,7 @@ namespace Väderdata.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // här hämtas databas infon i Program.cs med hjälp av connection string och pekar till rätt klass ( WeatherContext ) 
             services.AddDbContext<WeatherContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("WeatherDataConnex")));
 
