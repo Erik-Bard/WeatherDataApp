@@ -17,7 +17,7 @@ namespace Väderdata.Web.Data
         {
             DateTime opened = open;
             DateTime closed = close;
-            TimeSpan totalDifference = closed - opened;
+            TimeSpan total = closed - opened;
             // Retrieve correct date
             var query = (from a in context.CsvModelClasses
                          where a.Datum.Month == opened.Month
@@ -34,7 +34,19 @@ namespace Väderdata.Web.Data
                                    select o.Temp).ToList();
 
             // JÄMFÖRA ???? HUR ???
-
+            double days = ((closed.Day - opened.Day));
+            if (days > 1)
+            {
+                days *= 24;
+            }
+            else
+            {
+                days = 0;
+            }
+            double minutes = total.Minutes;
+            double hours = total.Hours;
+            hours = hours + days;
+            double TotalMinutes = (hours * 60) + minutes;
 
             // Calculate difference between both temps
 
@@ -47,8 +59,8 @@ namespace Väderdata.Web.Data
             {
                 Console.WriteLine($"{thing}");
             }
-
-            return totalDifference;
+            Console.WriteLine($"Using Timespan: {total}, Using Double: {TotalMinutes}");
+            return total;
         }
     }
 }
