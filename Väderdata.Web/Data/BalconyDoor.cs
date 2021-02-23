@@ -94,8 +94,12 @@ namespace Väderdata.Web.Data
                                       select m).ToList();
                     if(nextMinute.Count() == 0 || StartDate.Minute == 59)
                     {
-                        StartDate = StartDate.AddHours(1);
-                        StartDate = StartDate.AddMinutes(-59);
+                        if(StartDate.Minute == 59)
+                        {
+                            StartDate = StartDate.AddHours(1);
+                            StartDate = StartDate.AddMinutes(-59);
+                            Rising = false;
+                        }
                         Rising = false;
                     }
                     else
@@ -115,8 +119,7 @@ namespace Väderdata.Web.Data
                     }
                     
                 }
-
-                Console.WriteLine("Hej");
+                Console.WriteLine("Claes");
                 //if(nextMinute)
                 //int tempRiseCount = 0;
             }
