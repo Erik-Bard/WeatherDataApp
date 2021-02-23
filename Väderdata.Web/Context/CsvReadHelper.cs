@@ -64,6 +64,8 @@ namespace Väderdata.Web.Context
             csvParser.ReadFromFile("TempFuktData.csv", Encoding.UTF8);
             var fixedEntry = csvParser
                         .ReadFromFile(csv_file_path, Encoding.ASCII)
+                        .Skip(1)
+                        //.Distinct()
                         .ToList();
             reader.Dispose();
             return fixedEntry;

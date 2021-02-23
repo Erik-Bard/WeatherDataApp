@@ -63,7 +63,7 @@ namespace Väderdata.Web.Data
             return total;
         }
 
-        public static void GetTimeBalcony(WeatherContext context)
+        public static DateTime? GetTimeBalcony(WeatherContext context)
         {
             var days = (from d in context.CsvModelClasses
                         where d.Plats == "Inne"
@@ -72,6 +72,9 @@ namespace Väderdata.Web.Data
                        ).ToList();
             bool running = true;
             DateTime StartDate = days[0].Datum;
+            DateTime Date = StartDate;
+            int doorCounter = 0;
+            List<DateTime> doorIsOpen = new List<DateTime>(); 
             while (running)
             {
                 var currentMinute = (from CM in days
@@ -104,12 +107,14 @@ namespace Väderdata.Web.Data
                     }
                     else
                     {
+                        // KOMMER ALDRIG IN I IF SATSEN!!!! //
                         if ((nextMinute[0].Temp - checkTemp) > 1 || (checkTemp - nextMinute[0].Temp) > 1 || (initialTemp - checkTemp) > 1)
                         {
                             checkTemp = nextMinute[0].Temp;
                             increment++;
                             Console.WriteLine("Love är Great");
-
+                            doorCounter += 1;
+                            return Date;
                         }
                         else if ((initialTemp - checkTemp) < 1 || (checkTemp - initialTemp) < 1)
                         {
@@ -117,15 +122,23 @@ namespace Väderdata.Web.Data
                             Rising = false;
                         }
                     }
-                    
+                    if (doorCounter == 1)
+                    {
+                        doorIsOpen.Add(StartDate);
+                    }
+                    if (doorCounter == 2)
+                    {
+                        Console.WriteLine("The door was open during:");
+                        Console.WriteLine($"Time: {doorIsOpen}");
+                    }
                 }
-                Console.WriteLine("Claes");
-                //if(nextMinute)
-                //int tempRiseCount = 0;
+                //Console.WriteLine("Claes");
+                if (days == null)
+                {
+                    running = false;
+                }
             }
-
+            return null;
         }
-
-        
     }
 }
