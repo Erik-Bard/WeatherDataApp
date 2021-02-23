@@ -22,6 +22,7 @@ namespace Väderdata.Web.Context
                 MögelRisk.PopulateMouldRisk(context, "Ute");
                 MögelRisk.PopulateMouldRisk(context, "Inne");
             }
+            BalconyDoor.GetTimeBalcony(context);
             context.SaveChanges();
         }
     }
