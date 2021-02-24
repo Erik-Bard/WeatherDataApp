@@ -12,9 +12,11 @@ namespace Väderdata.Web.Data
         public int Id { get; set; }
 
         public string? HöstStart { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? HöstDatum { get; set; }
 
         public string? VinterStart { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? VinterDatum { get; set; }
 
 

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Väderdata.Web.Data.InformationTableOutdoor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@section Scripts
+{
+
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script>
+$(document).ready(function () {
+            $("#datepicker").datepicker({
+                dateFormat: "yyyy-mm-dd",
+                changeMonth: true,
+                changeYear: true
+            });
+        });</script>
+}
+
+<form asp-controller="InformationTableOutdoors" asp-action="Index">
+    <p>
+        Date: <input type="text" id="datepicker" name="searchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sort="@ViewData["SortDate"]">Date</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sort="@ViewData["SortTemp"]">Temperature</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sort="@ViewData["SortHum"]">Humidity</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sort="@ViewData["SortMould"]">Mould Risk</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelectDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvgTemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvgHum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MouldRisk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MouldRank)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

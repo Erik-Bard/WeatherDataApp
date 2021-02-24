@@ -10,8 +10,8 @@ using Väderdata.Web.Context;
 namespace Väderdata.Web.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20210222131858_initial")]
-    partial class initial
+    [Migration("20210224144622_InitialSetup")]
+    partial class InitialSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,26 +45,22 @@ namespace Väderdata.Web.Migrations
                     b.ToTable("AvgTempAndHumidities");
                 });
 
-            modelBuilder.Entity("Väderdata.Web.Data.AvgTempInit", b =>
+            modelBuilder.Entity("Väderdata.Web.Data.BalconyDoor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("AverageTemperature")
-                        .HasColumnType("float");
+                    b.Property<DateTime>("ClosingDoor")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Plats")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SelectDate")
+                    b.Property<DateTime>("OpeningDoor")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("avgTempInit");
+                    b.ToTable("BalconyDoor");
                 });
 
             modelBuilder.Entity("Väderdata.Web.Data.CsvModelClass", b =>
@@ -89,6 +85,60 @@ namespace Väderdata.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CsvModelClass");
+                });
+
+            modelBuilder.Entity("Väderdata.Web.Data.InformationTableIndoor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("AvgHum")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AvgTemp")
+                        .HasColumnType("float");
+
+                    b.Property<int>("MouldRank")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MouldRisk")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SelectDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InformationTable");
+                });
+
+            modelBuilder.Entity("Väderdata.Web.Data.InformationTableOutdoor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("AvgHum")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AvgTemp")
+                        .HasColumnType("float");
+
+                    b.Property<int>("MouldRank")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MouldRisk")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SelectDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InformationTableOutdoor");
                 });
 
             modelBuilder.Entity("Väderdata.Web.Data.MeteorologiskSäsong", b =>
