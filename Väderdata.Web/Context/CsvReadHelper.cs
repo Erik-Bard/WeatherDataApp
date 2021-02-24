@@ -1,14 +1,13 @@
-﻿using CsvHelper;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TinyCsvParser;
 using Väderdata.Web.Data;
 
 namespace Väderdata.Web.Context
@@ -21,7 +20,7 @@ namespace Väderdata.Web.Context
         public static string csv_file_path = "TempFuktData.csv";
         public static void CsvBuilder(WeatherContext context)
         {
-            var read = Reader();
+            var read = ReadCsv();
             // Ensure the DB exists and doesnt have any data in the table we want to populate
             context.Database.EnsureCreated();
             if (context.CsvModelClasses.Any())
@@ -36,39 +35,54 @@ namespace Väderdata.Web.Context
                 }
                 else
                 {
-                    foreach (var item in read)
-                    {
-                        if (item.Error != null)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            context.CsvModelClasses.Add(item.Result);
-                        }
-                    }
+                    context.CsvModelClasses.BulkInsert(read);
                 }
-                context.SaveChanges();
             }
         }
-        public static List<TinyCsvParser.Mapping.CsvMappingResult<CsvModelClass>> Reader()
+        public static List<CsvModelClass> ReadCsv()
         {
-            TextReader reader = new StreamReader("TempFuktData.csv");
-            // Här har vi lagt in en culture info då datan har använt '.' istället för ',' i csv filen
-            var csvReader = new CsvReader(reader, System.Globalization.CultureInfo.CreateSpecificCulture("sv-se"));
-            csvReader.GetRecords<CsvModelClass>();
-
-            CsvParserOptions csvParserOptions = new CsvParserOptions(true, ',');
-            // denna rad kopplas till CsvReadMapper.cs klassen där infon är lagd i sina specifika delar
-            var csvParser = new CsvParser<CsvModelClass>(csvParserOptions, new CsvReadMapper());
-            csvParser.ReadFromFile("TempFuktData.csv", Encoding.UTF8);
-            var fixedEntry = csvParser
-                        .ReadFromFile(csv_file_path, Encoding.ASCII)
-                        .Skip(1)
-                        //.Distinct()
-                        .ToList();
-            reader.Dispose();
-            return fixedEntry;
+            string path = "TempFuktData.csv";
+            StreamReader sr = new StreamReader(path);
+            Console.WriteLine("hej");
+            Console.WriteLine();
+            List<string> CsvData = File.ReadAllLines(path).Distinct().ToList();
+            List<CsvModelClass> SortedList = new List<CsvModelClass>();
+            foreach (string item in CsvData)
+            {
+                // Divide string inputs from file and remove commas
+                string[] values = item.Split(',');
+                CsvModelClass csvClass = new CsvModelClass();
+                //Give properties value and parse values from string seperated array
+                try
+                {
+                    csvClass.Datum = DateTime.Parse(values[0]);
+                    csvClass.Plats = values[1];
+                    var variable = values[2].Replace('.', ',')
+                                            .Replace('−', '-');
+                    csvClass.Temp = double.Parse(variable);
+                    csvClass.Luftfuktighet = int.Parse(values[3]);
+                    Console.WriteLine($"{csvClass.Datum}, {variable}");
+                    SortedList.Add(csvClass);
+                }
+                // Catch format error and set temp to 0 because double cant be null
+                catch (FormatException)
+                {
+                    string s = values[2];
+                    csvClass.Temp = 0;
+                }
+                // Catch Overflow during assert and set temp to 0 because double cant be null
+                catch (OverflowException)
+                {
+                    csvClass.Temp = 0;
+                }
+                // Catch other errors and display to user via console
+                catch (Exception em)
+                {
+                    Console.WriteLine(em.Message);
+                }
+            }
+            sr.Close();
+            return SortedList;
         }
     }
 }
