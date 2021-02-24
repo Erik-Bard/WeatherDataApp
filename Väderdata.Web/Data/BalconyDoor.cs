@@ -11,7 +11,7 @@ namespace Väderdata.Web.Data
         public int Id { get; set; }
         public DateTime OpeningDoor { get; set; }
         public DateTime ClosingDoor { get; set; }
-        public int TimeSpan { get; set; }
+        //public int TimeSpan { get; set; }
 
         
 
@@ -68,7 +68,6 @@ namespace Väderdata.Web.Data
         public static DateTime? GetTimeBalcony(WeatherContext context)
         {
             var days = (from d in context.CsvModelClasses
-                        where d.Plats == "Inne"
                         orderby d.Datum.DayOfYear ascending
                         select d
                        ).ToList();
@@ -129,7 +128,7 @@ namespace Väderdata.Web.Data
                             {
                                 BalconyDoor _BalconyDoor = new BalconyDoor
                                 {
-                                    TimeSpan = doorCounter,
+                                    //TimeSpan = doorCounter,
                                     ClosingDoor = StartDate
                                 };
                                 BalconyDoors.Add(_BalconyDoor);
@@ -155,7 +154,7 @@ namespace Väderdata.Web.Data
             int totalTime = 0;
             foreach (var item in BalconyDoors)
             {
-                totalTime = totalTime + item.TimeSpan;
+                //totalTime = totalTime + item.TimeSpan;
             }
             return null;
         }

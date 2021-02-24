@@ -12,6 +12,7 @@ namespace Väderdata.Web.Data
         [Required]
         public int Id { get; set; }
         // SelectDate shows average temp for a chosen day
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime SelectDate { get; set; }
 
         public double AverageHumidity { get; set; }

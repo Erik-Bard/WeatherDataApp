@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Väderdata.Web.Migrations
 {
-    public partial class initial : Migration
+    public partial class InitialSetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,18 +24,17 @@ namespace Väderdata.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "avgTempInit",
+                name: "BalconyDoor",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SelectDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Plats = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AverageTemperature = table.Column<double>(type: "float", nullable: false)
+                    OpeningDoor = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClosingDoor = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_avgTempInit", x => x.Id);
+                    table.PrimaryKey("PK_BalconyDoor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,6 +51,40 @@ namespace Väderdata.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CsvModelClass", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InformationTable",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SelectDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AvgTemp = table.Column<double>(type: "float", nullable: false),
+                    AvgHum = table.Column<double>(type: "float", nullable: false),
+                    MouldRisk = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MouldRank = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InformationTable", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InformationTableOutdoor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SelectDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AvgTemp = table.Column<double>(type: "float", nullable: false),
+                    AvgHum = table.Column<double>(type: "float", nullable: false),
+                    MouldRisk = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MouldRank = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InformationTableOutdoor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,10 +139,16 @@ namespace Väderdata.Web.Migrations
                 name: "AvgTempAndHumidities");
 
             migrationBuilder.DropTable(
-                name: "avgTempInit");
+                name: "BalconyDoor");
 
             migrationBuilder.DropTable(
                 name: "CsvModelClass");
+
+            migrationBuilder.DropTable(
+                name: "InformationTable");
+
+            migrationBuilder.DropTable(
+                name: "InformationTableOutdoor");
 
             migrationBuilder.DropTable(
                 name: "MögelRisk");

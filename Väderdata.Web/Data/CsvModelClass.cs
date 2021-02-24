@@ -9,6 +9,7 @@ namespace Väderdata.Web.Data
     public class CsvModelClass
     {
         public int Id { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Datum { get; set; }
         public string Plats { get; set; }
         public double Temp { get; set; }

@@ -5,19 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Väderdata.Web.Context;
 using Väderdata;
+using System.ComponentModel.DataAnnotations;
 
 namespace Väderdata.Web.Data
 {
     public class MögelRisk
     {
         public int Id { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime SelectDate { get; set; }
         public string Plats { get; set; }
         public string RiskFörMögel { get; set; }
         public int MögelIndex { get; set; }
-
-        private static string MouldTxtPath = "MögelTabell.txt";
-
         public static IQueryable<MögelRisk> SortByMögelRisk(WeatherContext context)
         {
             var MögelSort = from T in context.MögelRisks
