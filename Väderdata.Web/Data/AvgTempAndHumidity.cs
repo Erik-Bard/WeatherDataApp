@@ -21,7 +21,7 @@ namespace Väderdata.Web.Data
 
         public string Plats { get; set; }
 
-
+        //SortByHumidity sorterar medelluftfuktigheten i stigande ordning.
         public static IQueryable<AvgTempAndHumidity> SortByHumidity(WeatherContext context)
         {
             var HumSort = (from H in context.AvgTempAndHumidities
@@ -30,6 +30,8 @@ namespace Väderdata.Web.Data
             return HumSort;
                          
         }
+
+        //SortByTemperature sorterar medeltemperaturen i stigande ordning.
         public static IQueryable<AvgTempAndHumidity> SortByTemperature(WeatherContext context)
         {
             var TempSort = (from T in context.AvgTempAndHumidities
@@ -38,30 +40,35 @@ namespace Väderdata.Web.Data
             return TempSort;
         }
 
+
+        //PopulateAvgTempAndHumidity populerar AvgTempAndHumidity-tabellen i databasen
         public static void PopulateAvgTempAndHumidity(WeatherContext context)
         {
-            string Plats = "Ute";
+            string Place = "Ute";
             bool running = true;
             while (running)
             {
                 DateTime StartDate = new DateTime(2016, 10, 01);
                 while (StartDate.Month != 12)
                 {
+                    //Här gör vi en query för att hämta värden för temperatur och luftfuktighet
                     int counterTemp = 0;
                     int counterHumi = 0;
                     List<double> counterListHum = new List<double>();
                     List<double> counterListTemp = new List<double>();
                     var CSV = context.CsvModelClasses.ToList();
-                    var datumSelect = (from m in CSV
+                    var dateSelect = (from m in CSV
                                        where m.Datum.DayOfYear == StartDate.DayOfYear
                                        select m).ToList();
-                    var platsSelect = (from e in datumSelect
-                                       where e.Plats == Plats
+                    var placeSelect = (from e in dateSelect
+                                       where e.Plats == Place
                                        select e).ToList();
-                    var queryTemp = (from k in platsSelect
+                    var queryTemp = (from k in placeSelect
                                      select k.Temp).ToList();
-                    var queryHumid = (from k in platsSelect
+                    var queryHumid = (from k in placeSelect
                                       select k.Luftfuktighet).ToList();
+
+                    //Här räknar vi ut medelluftfuktighet och medeltemperatur
                     if(queryTemp.Count() != 0 || queryHumid.Count() != 0)
                     {
                         foreach (var item in queryHumid)
@@ -78,16 +85,18 @@ namespace Väderdata.Web.Data
                         }
                         double total2 = queryTemp.Sum();
                         double avgTemp = Math.Round((total2 / counterListTemp.Count()), 2);
-                        AvgTempAndHumidity avgTemps = new AvgTempAndHumidity { Plats = Plats, AverageTemperature = avgTemp, AverageHumidity = avgHum, SelectDate = StartDate };
+
+                        //Här skickar vi tillbaka AvgTempAndHumidity som ett objekt med properties till contexten.
+                        AvgTempAndHumidity avgTemps = new AvgTempAndHumidity { Plats = Place, AverageTemperature = avgTemp, AverageHumidity = avgHum, SelectDate = StartDate };
                         context.AvgTempAndHumidities.Add(avgTemps);
                     }
                     StartDate = StartDate.AddDays(1);
                 }
-                if (Plats == "Inne")
+                if (Place == "Inne")
                 {
                     running = false;
                 }
-                Plats = "Inne";
+                Place = "Inne";
                 context.SaveChanges();
             }
         }
