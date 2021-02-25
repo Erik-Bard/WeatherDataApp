@@ -57,7 +57,7 @@ namespace Väderdata.Web.Controllers
             }
             if (!String.IsNullOrEmpty(search))
             {
-                IndoorModel = IndoorModel.Where(s => s.SelectDate.ToString().Contains(search));
+                IndoorModel = IndoorModel.Where(s => s.SelectDate == DateTime.Parse(search));
             }
             return View(IndoorModel);
         }
