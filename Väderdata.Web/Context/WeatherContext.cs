@@ -16,12 +16,13 @@ namespace Väderdata.Web.Context
         // DbSet's go here:
         public DbSet<AvgTempAndHumidity> AvgTempAndHumidities { get; set; }
         public DbSet<CsvModelClass> CsvModelClasses { get; set; }
-        public DbSet<MögelRisk> MögelRisks { get; set; }
+        public DbSet<MögelRisk> MouldRisks { get; set; }
         public DbSet<MeteorologiskSäsong> WeatherSeason { get; set; }
         public DbSet<BalconyDoor> BalconyDoor { get; set; }
-        public DbSet<ReadOnlyEnviroment> ReadOnlyEnv { get; set; }
-        public DbSet<InformationTableIndoor> InformationTablesIndoor { get; set; }
-        public DbSet<InformationTableOutdoor> InformationTablesOutdoor { get; set; }
+        public DbSet<InformationTableIndoor> InformationTable { get; set; }
+        public DbSet<InformationTableOutdoor> InformationTableOutdoor { get; set; }
+
+        // Modelbuilder for all entities that need specific mapping etc
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CsvModelClass>()

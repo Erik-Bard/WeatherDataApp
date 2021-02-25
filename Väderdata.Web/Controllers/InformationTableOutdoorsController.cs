@@ -89,7 +89,7 @@ namespace Väderdata.Web.Controllers
                                where t.SelectDate == date
                                where t.Plats == "Ute"
                                select t).ToList();
-                var Mould = (from m in _context.MögelRisks
+                var Mould = (from m in _context.MouldRisks
                              where m.SelectDate == date
                              where m.Plats == "Ute"
                              select m).ToList();

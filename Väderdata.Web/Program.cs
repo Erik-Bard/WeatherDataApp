@@ -30,7 +30,6 @@ namespace Väderdata.Web
                     var context = services.GetRequiredService<WeatherContext>();
                     // här kallar vi på databas initiering där programmet kollar om datan finns och lägger till om inte
                     DataInitializer.DatabaseStarter(context);
-                    ReadOnlyEnviroment.PopulateIfEmpty(context);
                 }
                 catch (Exception ex)
                 {

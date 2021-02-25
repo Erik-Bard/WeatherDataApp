@@ -19,7 +19,7 @@ namespace Väderdata.Web.Data
         public int MögelIndex { get; set; }
         public static IQueryable<MögelRisk> SortByMögelRisk(WeatherContext context)
         {
-            var MögelSort = from T in context.MögelRisks
+            var MögelSort = from T in context.MouldRisks
                             orderby T.MögelIndex ascending
                             select T;
             return MögelSort;
@@ -81,7 +81,7 @@ namespace Väderdata.Web.Data
 
                 string MögelFakta = MögelText(mouldRisk.ToString());
                 var _MögelRisk = new MögelRisk { SelectDate = day, RiskFörMögel = MögelFakta, Plats = position, MögelIndex = mouldRisk };
-                context.MögelRisks.Add(_MögelRisk);
+                context.MouldRisks.Add(_MögelRisk);
             }
             context.SaveChanges();
         }
