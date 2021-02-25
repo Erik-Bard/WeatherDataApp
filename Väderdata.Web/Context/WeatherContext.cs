@@ -19,6 +19,7 @@ namespace Väderdata.Web.Context
         public DbSet<MouldRisk> MouldRisks { get; set; }
         public DbSet<MeteorologicalSeason> WeatherSeason { get; set; }
         public DbSet<BalconyDoor> BalconyDoor { get; set; }
+        public DbSet<DoorOpening> DoorOpenings { get; set; }
         public DbSet<InformationTableIndoor> InformationTableIndoor { get; set; }
         public DbSet<InformationTableOutdoor> InformationTableOutdoor { get; set; }
 

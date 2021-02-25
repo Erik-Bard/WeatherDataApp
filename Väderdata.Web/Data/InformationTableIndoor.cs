@@ -23,7 +23,7 @@ namespace Väderdata.Web.Data
 
             var Dates = new List<DateTime>();
 
-            foreach (var item in context.InformationTablesIndoor)
+            foreach (var item in context.InformationTableIndoor)
             {
                 if (item != null)
                 {
@@ -43,7 +43,7 @@ namespace Väderdata.Web.Data
                           where t.OpeningDoor.DayOfYear == date.DayOfYear
                           select t;
                 int counter = 0;
-                var changeDay = (from c in context.InformationTablesIndoor
+                var changeDay = (from c in context.InformationTableIndoor
                                  where c.SelectDate.DayOfYear == date.DayOfYear
                                  select c).ToList(); ;
                 foreach (var time in day)
