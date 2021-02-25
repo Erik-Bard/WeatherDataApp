@@ -19,8 +19,9 @@ namespace Väderdata.Web.Context
         public DbSet<MögelRisk> MouldRisks { get; set; }
         public DbSet<MeteorologiskSäsong> WeatherSeason { get; set; }
         public DbSet<BalconyDoor> BalconyDoor { get; set; }
-        public DbSet<InformationTableIndoor> InformationTable { get; set; }
-        public DbSet<InformationTableOutdoor> InformationTableOutdoor { get; set; }
+        public DbSet<DoorOpening> DoorOpenings { get; set; }
+        public DbSet<InformationTableIndoor> InformationTablesIndoor { get; set; }
+        public DbSet<InformationTableOutdoor> InformationTablesOutdoor { get; set; }
 
         // Modelbuilder for all entities that need specific mapping etc
         protected override void OnModelCreating(ModelBuilder modelBuilder)

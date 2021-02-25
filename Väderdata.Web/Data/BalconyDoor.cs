@@ -10,23 +10,22 @@ namespace Väderdata.Web.Data
     {
         public int Id { get; set; }
         public DateTime DayChecked { get; set; }
-
-        public List<DoorOpening> DoorOpenings = new List<DoorOpening>();
         public double TemperatureDifferences { get; set; }
 
         public BalconyDoor()
         {
         }
-        public static DateTime? GetTimeBalcony(WeatherContext context)
+        public static void GetTimeBalcony(WeatherContext context)
         {
             bool runningDays = true;
             List<BalconyDoor> BalconyDoors = new List<BalconyDoor>();
             var daysInside = CsvModelClass.GetRequiredPlace("Inne", context);
             var daysOutside = CsvModelClass.GetRequiredPlace("Ute", context);
             DateTime StartDate = daysInside[0].Datum;
+            int dayIncrement = 0;
             while (runningDays)
             {
-                StartDate.AddDays(1);
+                StartDate = StartDate.AddDays(dayIncrement);
                 bool runningMinutes = true;
                 DateTime TimeChecked = new DateTime();
                 int currentDay = StartDate.Day;
@@ -35,9 +34,9 @@ namespace Väderdata.Web.Data
                     bool Rising = true;
                     int increment = 1;
                     double TempDifferenceCurrent = 0;
-                    
                     double OriginalTempDifference = 0;
                     int doorCounter = 0;
+                    DateTime CurrentMinute = TimeChecked;
                     var currentMinuteInside = CsvModelClass.GetRequiredMinutes(daysInside, StartDate, 0);
                     var currentMinuteOutside = CsvModelClass.GetRequiredMinutes(daysOutside, StartDate, 0);
                     if (currentMinuteInside.Count() == 0 || currentMinuteOutside.Count() == 0)
@@ -65,20 +64,21 @@ namespace Väderdata.Web.Data
                         else
                         {
                             double TempDifferenceNext = nextMinuteInside[0].Temp - nextMinuteOutside[0].Temp;
-                            if (TempDifferenceCurrent - TempDifferenceNext > 1 || OriginalTempDifference - TempDifferenceNext > 1)
+                            if (TempDifferenceCurrent - TempDifferenceNext >= 0.4 || OriginalTempDifference - TempDifferenceNext >= 0.4)
                             {
                                 TempDifferenceCurrent = TempDifferenceNext;
                                 increment++;
                                 doorCounter++;
                             }
-                            else if (TempDifferenceCurrent - TempDifferenceNext < 1 || OriginalTempDifference - TempDifferenceNext < 1)
+                            else if (TempDifferenceCurrent - TempDifferenceNext < 0.4 || OriginalTempDifference - TempDifferenceNext < 0.4)
                             {
                                 StartDate = nextMinuteInside[0].Datum;
                                 if (doorCounter > 1)
                                 {
+                                    DateTime Open = CurrentMinute;
                                     DateTime Close = currentMinuteInside[0].Datum;
-                                    DoorOpening doorOpening = new DoorOpening(Close, doorCounter);
-                                    balconyDoor.DoorOpenings.Add(doorOpening);
+                                    DoorOpening doorOpening = new DoorOpening(Open, Close, doorCounter);
+                                    context.DoorOpenings.Add(doorOpening);
                                 }
                                 Rising = false;
                             }
@@ -96,12 +96,14 @@ namespace Väderdata.Web.Data
                         }
                         BalconyDoors.Add(balconyDoor);
                         // end of rising
-                        
                     }
                     if (StartDate.Hour == 23 && StartDate.Minute == 59 || currentDay != StartDate.Day)
                     {
                         runningMinutes = false;
-                        if(StartDate.Month == 12)
+                        StartDate = StartDate.AddHours(-StartDate.Hour);
+                        StartDate = StartDate.AddMinutes(-StartDate.Minute);
+                        dayIncrement++;
+                        if (StartDate.Month == 12)
                         {
                             runningDays = false;
                         }
@@ -112,9 +114,8 @@ namespace Väderdata.Web.Data
                 {
                     context.BalconyDoor.Add(item);
                 }
-                context.SaveChanges();
+               context.SaveChanges();
             }
-            return null;
         }
     }
 }

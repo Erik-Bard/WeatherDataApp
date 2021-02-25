@@ -21,6 +21,7 @@ namespace Väderdata.Web.Data
 
         public string Plats { get; set; }
 
+
         public static IQueryable<AvgTempAndHumidity> SortByHumidity(WeatherContext context)
         {
             var HumSort = (from H in context.AvgTempAndHumidities

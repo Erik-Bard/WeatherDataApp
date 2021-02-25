@@ -65,7 +65,7 @@ namespace Väderdata.Web.Context
                                             .Replace('−', '-');
                     csvClass.Temp = double.Parse(variable);
                     csvClass.Luftfuktighet = int.Parse(values[3]);
-                    Console.WriteLine($"{csvClass.Datum}, {variable}");
+                    //Console.WriteLine($"{csvClass.Datum}, {variable}");
                     SortedList.Add(csvClass);
                 }
                 // Catch format error and set temp to 0 because double cant be null
