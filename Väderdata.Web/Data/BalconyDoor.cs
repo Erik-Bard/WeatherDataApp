@@ -89,10 +89,6 @@ namespace Väderdata.Web.Data
                     }
                     continue;
                 }
-                if(date.Minute == 45 && date.Hour == 13 )
-                {
-
-                }
                 double checkDiff = Math.Abs(nextMinute[0].TemperatureDifferences - currentMinute[0].TemperatureDifferences);
                 if(checkDiff >= 1)
                 {
@@ -102,7 +98,7 @@ namespace Väderdata.Web.Data
                     doorOpening.TimeChecked = date;
                     doorOpenings.Add(doorOpening);
                 }
-                else if(Math.Abs(OriginalTemp - nextMinute[0].TemperatureDifferences) <= 0.5)
+                else if(Math.Abs(OriginalTemp - nextMinute[0].TemperatureDifferences) <= 0.8)
                 {
                     openDoor = false;
                     doorOpening.Opened = openDoor;

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Väderdata.Web.Migrations
 {
-    public partial class denis : Migration
+    public partial class @finally : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
