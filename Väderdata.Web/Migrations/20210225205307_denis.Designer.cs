@@ -10,8 +10,8 @@ using Väderdata.Web.Context;
 namespace Väderdata.Web.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20210225114027_Denis")]
-    partial class Denis
+    [Migration("20210225205307_denis")]
+    partial class denis
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace Väderdata.Web.Migrations
                     b.Property<double>("AverageTemperature")
                         .HasColumnType("float");
 
-                    b.Property<string>("Place")
+                    b.Property<string>("Plats")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SelectDate")
@@ -76,7 +76,7 @@ namespace Väderdata.Web.Migrations
                     b.Property<double>("Luftfuktighet")
                         .HasColumnType("float");
 
-                    b.Property<string>("Place")
+                    b.Property<string>("Plats")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Temp")
@@ -85,6 +85,24 @@ namespace Väderdata.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CsvModelClass");
+                });
+
+            modelBuilder.Entity("Väderdata.Web.Data.DoorOpening", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Opened")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("TimeChecked")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DoorOpenings");
                 });
 
             modelBuilder.Entity("Väderdata.Web.Data.InformationTableIndoor", b =>
@@ -109,9 +127,12 @@ namespace Väderdata.Web.Migrations
                     b.Property<DateTime>("SelectDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<double>("TotalTimeBalconyDoorOpened")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
-                    b.ToTable("InformationTablesIndoor");
+                    b.ToTable("InformationTableIndoor");
                 });
 
             modelBuilder.Entity("Väderdata.Web.Data.InformationTableOutdoor", b =>
@@ -138,7 +159,7 @@ namespace Väderdata.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InformationTablesOutdoor");
+                    b.ToTable("InformationTableOutdoor");
                 });
 
             modelBuilder.Entity("Väderdata.Web.Data.MeteorologicalSeason", b =>
@@ -187,21 +208,6 @@ namespace Väderdata.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MouldRisk");
-                });
-
-            modelBuilder.Entity("Väderdata.Web.Data.ReadOnlyEnviroment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Place")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReadOnlyEnv");
                 });
 #pragma warning restore 612, 618
         }

@@ -24,8 +24,8 @@ namespace Väderdata.Web.Context
             }
             if (!context.BalconyDoor.Any())
             {
-                BalconyDoor.GetTimeBalcony(context);
-                InformationTableIndoor.AddBalconyTime(context);
+                BalconyDoor.PopulateBalconyDoor(context);
+                BalconyDoor.DoorOpened(context);
             }
             context.SaveChanges();
         }

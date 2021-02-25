@@ -18,41 +18,22 @@ namespace Väderdata.Web.Data
         public int MouldRank { get; set; }
         public double TotalTimeBalconyDoorOpened { get; set; }
 
-        public static void AddBalconyTime(WeatherContext context)
-        {
 
-            var Dates = new List<DateTime>();
-
-            foreach (var item in context.InformationTableIndoor)
-            {
-                if (item != null)
-                {
-                    Dates.Add(item.SelectDate);
-                }
-                else
-                {
-                    continue;
-                }
-            }
-            var OrderedDates = Dates.OrderByDescending(x => x).ToList();
-            var first = OrderedDates.Last();
-            var last = OrderedDates.First();
-            for (DateTime date = first; date <= last; date.AddDays(1))
-            {
-                var day = from t in context.DoorOpenings
-                          where t.OpeningDoor.DayOfYear == date.DayOfYear
-                          select t;
-                int counter = 0;
-                var changeDay = (from c in context.InformationTableIndoor
-                                 where c.SelectDate.DayOfYear == date.DayOfYear
-                                 select c).ToList(); ;
-                foreach (var time in day)
-                {
-                    counter += time.TimeOpened;
-                }
-                changeDay[0].TotalTimeBalconyDoorOpened = counter;
-            }     
-        }
+        //public static double AddBalconyTime(WeatherContext context, DateTime date)
+        //{
+        //    //var day = from t in context.DoorOpenings
+        //    //          where t.TimeChecked == date
+        //    //          select t;
+        //    //int counter = 0;
+        //    //var changeDay = (from c in context.InformationTableIndoor
+        //    //                 where c.SelectDate == date
+        //    //                 select c).ToList(); 
+        //    //foreach (var time in day)
+        //    //{
+        //    //    counter += time.TimeOpened;
+        //    //}
+        //    //return counter;
+        //}
     }
 }
 

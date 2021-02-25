@@ -25,7 +25,8 @@ namespace Väderdata.Web.Controllers
             ViewData["SortTemp"] = sort == "Temperature" ? "TemperatureDescending" : "Temperature";
             ViewData["SortHum"] = sort == "Humidity" ? "HumidityDescending" : "Humidity";
             ViewData["SortMould"] = sort == "MouldRisk" ? "MouldRiskDescending" : "MouldRisk";
-            IEnumerable<InformationTableIndoor> IndoorModel = GetDataIndoor();
+            ViewData["SortTempDifference"] = sort == "SortTempDifference" ? "SortTempDifferenceDescending" : "SortTempDifference";
+            IEnumerable<InformationTableIndoor> IndoorModel = GetDataIndoor(_context);
 
             switch(sort)
             {
@@ -50,6 +51,12 @@ namespace Väderdata.Web.Controllers
                 case "MouldRiskDescending":
                     IndoorModel = IndoorModel.OrderByDescending(x => x.MouldRank);
                     break;
+                case "SortTempDifference":
+                    IndoorModel = IndoorModel.OrderBy(x => x.TotalTimeBalconyDoorOpened);
+                    break;
+                case "SortTempDifferenceDescending":
+                    IndoorModel = IndoorModel.OrderByDescending(x => x.TotalTimeBalconyDoorOpened);
+                    break;
                 default:
                     IndoorModel = IndoorModel.OrderBy(x => x.SelectDate);
                     break;
@@ -62,7 +69,7 @@ namespace Väderdata.Web.Controllers
             return View(IndoorModel);
         }
 
-        public List<InformationTableIndoor> GetDataIndoor()
+        public List<InformationTableIndoor> GetDataIndoor(WeatherContext context)
         {
             var IndoorModel = new List<InformationTableIndoor>();
             var dates = new List<DateTime>();
@@ -78,11 +85,12 @@ namespace Väderdata.Web.Controllers
                     continue;
                 }
             }
-
             var OrderedDates = dates.OrderByDescending(x => x).ToList();
             var firstDate = OrderedDates.Last();
             var lastDate = OrderedDates.First();
-
+            var openingTimes = (from d in context.DoorOpenings
+                                where d.Opened == true
+                                select d).ToList();
             for (DateTime date = firstDate; date <= lastDate; date = date.AddDays(1))
             {
                 var TempHum = (from t in _context.AvgTempAndHumidities
@@ -93,6 +101,9 @@ namespace Väderdata.Web.Controllers
                              where m.SelectDate == date
                              where m.Place == "Inne"
                              select m).ToList();
+                var TimeOpen = ((from o in openingTimes
+                                where o.TimeChecked.DayOfYear == date.DayOfYear
+                                select o).ToList()).Count();
                 double avgTemp = 0;
                 double avgHum = 0;
                 string mouldRisk = "";
@@ -114,7 +125,8 @@ namespace Väderdata.Web.Controllers
                     AvgHum = Math.Round(avgHum, 2),
                     AvgTemp = Math.Round(avgTemp, 2),
                     MouldRisk = mouldRisk,
-                    MouldRank = mouldRank
+                    MouldRank = mouldRank,
+                    TotalTimeBalconyDoorOpened = TimeOpen
                 };
                 IndoorModel.Add(line);
             }
