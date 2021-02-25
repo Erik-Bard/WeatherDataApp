@@ -88,7 +88,7 @@ namespace Väderdata.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MögelRisk",
+                name: "MouldRisk",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -151,7 +151,7 @@ namespace Väderdata.Web.Migrations
                 name: "InformationTablesOutdoor");
 
             migrationBuilder.DropTable(
-                name: "MögelRisk");
+                name: "MouldRisk");
 
             migrationBuilder.DropTable(
                 name: "ReadOnlyEnv");
