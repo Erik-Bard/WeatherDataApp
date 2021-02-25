@@ -29,10 +29,14 @@ namespace Väderdata.Web.Data
                          where p.Plats == "Ute"
                          select p.AverageTemperature)
                          .ToList();
+            var getDateQuery = (from a in context.AvgTempAndHumidities
+                                where a.Plats == "Ute"
+                                where a.AverageTemperature < 10 && a.AverageTemperature > 0
+                                select a.SelectDate)
+                                .ToList();
             var selectQuery = (from q in query
                                where q > 0 && q < 10
                                select q);
-
 
             Console.WriteLine(selectQuery);
 
@@ -45,6 +49,8 @@ namespace Väderdata.Web.Data
                 }
                 if (DateInRow == 5)
                 {
+                    DateTime autumnStart = getDateQuery[0];
+                    autumnDate = autumnStart;
                     Console.WriteLine(autumnDate);
                     return autumnDate;
                 }
@@ -65,6 +71,11 @@ namespace Väderdata.Web.Data
                          where p.Plats == "Ute"
                          select p.AverageTemperature)
                          .ToList();
+            var getDateQuery = (from a in context.AvgTempAndHumidities
+                                where a.Plats == "Ute"
+                                where a.AverageTemperature <= 0
+                                select a.SelectDate)
+                                .ToList();
             var selectVinter = (from q in vinterQuery
                                 where q < 0
                                select q);
@@ -80,6 +91,8 @@ namespace Väderdata.Web.Data
                 }
                 if (DateInRow == 5)
                 {
+                    DateTime winterStart = getDateQuery[0];
+                    winterDate = winterStart;
                     Console.WriteLine(winterDate);
                     return winterDate;
                 }

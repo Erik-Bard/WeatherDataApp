@@ -58,9 +58,10 @@ namespace Väderdata.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                AvgTempAndHumidity avgValues = new AvgTempAndHumidity();
                 DateTime WinterCheck = new DateTime(2016,10,01);
                 DateTime AutumnCheck = new DateTime(2016,10,01);
-                var Autumn = MeteorologicalSeason.AutumnDate(_context, AutumnCheck);
+                var Autumn = MeteorologicalSeason.AutumnDate(_context, AutumnCheck, avgValues);
                 var Winter = MeteorologicalSeason.WinterDate(_context, WinterCheck);
                 if(Autumn == null)
                 {
