@@ -130,7 +130,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableOutdoor = await _context.InformationTablesOutdoor
+            var informationTableOutdoor = await _context.InformationTableOutdoor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (informationTableOutdoor == null)
             {
@@ -170,7 +170,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableOutdoor = await _context.InformationTablesOutdoor.FindAsync(id);
+            var informationTableOutdoor = await _context.InformationTableOutdoor.FindAsync(id);
             if (informationTableOutdoor == null)
             {
                 return NotFound();
@@ -221,7 +221,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableOutdoor = await _context.InformationTablesOutdoor
+            var informationTableOutdoor = await _context.InformationTableOutdoor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (informationTableOutdoor == null)
             {
@@ -236,15 +236,15 @@ namespace Väderdata.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var informationTableOutdoor = await _context.InformationTablesOutdoor.FindAsync(id);
-            _context.InformationTablesOutdoor.Remove(informationTableOutdoor);
+            var informationTableOutdoor = await _context.InformationTableOutdoor.FindAsync(id);
+            _context.InformationTableOutdoor.Remove(informationTableOutdoor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool InformationTableOutdoorExists(int id)
         {
-            return _context.InformationTablesOutdoor.Any(e => e.Id == id);
+            return _context.InformationTableOutdoor.Any(e => e.Id == id);
         }
     }
 }

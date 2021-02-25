@@ -129,7 +129,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableIndoor = await _context.InformationTablesIndoor
+            var informationTableIndoor = await _context.InformationTableIndoor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (informationTableIndoor == null)
             {
@@ -169,7 +169,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableIndoor = await _context.InformationTablesIndoor.FindAsync(id);
+            var informationTableIndoor = await _context.InformationTableIndoor.FindAsync(id);
             if (informationTableIndoor == null)
             {
                 return NotFound();
@@ -220,7 +220,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableIndoor = await _context.InformationTablesIndoor
+            var informationTableIndoor = await _context.InformationTableIndoor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (informationTableIndoor == null)
             {
@@ -235,15 +235,15 @@ namespace Väderdata.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var informationTableIndoor = await _context.InformationTablesIndoor.FindAsync(id);
-            _context.InformationTablesIndoor.Remove(informationTableIndoor);
+            var informationTableIndoor = await _context.InformationTableIndoor.FindAsync(id);
+            _context.InformationTableIndoor.Remove(informationTableIndoor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool InformationTableIndoorExists(int id)
         {
-            return _context.InformationTablesIndoor.Any(e => e.Id == id);
+            return _context.InformationTableIndoor.Any(e => e.Id == id);
         }
     }
 }
