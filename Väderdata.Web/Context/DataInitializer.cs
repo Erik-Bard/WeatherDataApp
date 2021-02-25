@@ -12,17 +12,17 @@ namespace Väderdata.Web.Context
     {
         public static void DatabaseStarter(WeatherContext context)
         {
+            // Check if info in db exists, otherwise call methods to populate data
             CsvReadHelper.CsvBuilder(context);
             if (!context.AvgTempAndHumidities.Any())
             {
                 AvgTempAndHumidity.PopulateAvgTempAndHumidity(context);
             }
-            if (!context.MögelRisks.Any())
+            if (!context.MouldRisks.Any())
             {
                 MögelRisk.PopulateMouldRisk(context, "Ute");
                 MögelRisk.PopulateMouldRisk(context, "Inne");
             }
-            //BalconyDoor.GetTimeBalcony(context);
             context.SaveChanges();
         }
     }
