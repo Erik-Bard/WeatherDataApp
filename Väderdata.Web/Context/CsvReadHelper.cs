@@ -17,10 +17,13 @@ namespace Väderdata.Web.Context
                     /// </summary>
     public class CsvReadHelper
     {
+        // Declare csv-file as a string to call on when needed
         public static string csv_file_path = "TempFuktData.csv";
         public static void CsvBuilder(WeatherContext context)
         {
+            // Read in sorted data from method and save in variable
             var read = ReadCsv();
+
             // Ensure the DB exists and doesnt have any data in the table we want to populate
             context.Database.EnsureCreated();
             if (context.CsvModelClasses.Any())
@@ -29,10 +32,14 @@ namespace Väderdata.Web.Context
             }
             else
             {
+                // Check if read (our list of information from csv) contains anything 
+                // and if null it returns console writeline
                 if (read == null)
                 {
                     Console.WriteLine("\n\nThis is the end of the sequence");
                 }
+                // if our db with csv-file info is empty we bulk insert
+                // using Nuget-Package
                 else
                 {
                     context.CsvModelClasses.BulkInsert(read);
@@ -41,11 +48,8 @@ namespace Väderdata.Web.Context
         }
         public static List<CsvModelClass> ReadCsv()
         {
-            string path = "TempFuktData.csv";
-            StreamReader sr = new StreamReader(path);
-            Console.WriteLine("hej");
-            Console.WriteLine();
-            List<string> CsvData = File.ReadAllLines(path).Distinct().ToList();
+            // Open stream to file, read all data
+            List<string> CsvData = File.ReadAllLines(csv_file_path).Distinct().ToList();
             List<CsvModelClass> SortedList = new List<CsvModelClass>();
             foreach (string item in CsvData)
             {
@@ -81,7 +85,6 @@ namespace Väderdata.Web.Context
                     Console.WriteLine(em.Message);
                 }
             }
-            sr.Close();
             return SortedList;
         }
     }

@@ -16,6 +16,9 @@ namespace Väderdata.Web.Data
         public double AvgHum { get; set; }
         public string MouldRisk { get; set; }
         public int MouldRank { get; set; }
+
+
+        
     }
 }
 

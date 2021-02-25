@@ -9,152 +9,110 @@ namespace Väderdata.Web.Data
     public class BalconyDoor
     {
         public int Id { get; set; }
-        public DateTime OpeningDoor { get; set; }
-        public DateTime ClosingDoor { get; set; }
-        //public int TimeSpan { get; set; }
+        public DateTime DayChecked { get; set; }
 
-        
+        public List<DoorOpening> DoorOpenings = new List<DoorOpening>();
+        public double TemperatureDifferences { get; set; }
 
-        public static TimeSpan CalculateOpenTime(WeatherContext context, DateTime open, DateTime close)
+        public BalconyDoor()
         {
-            DateTime opened = open;
-            DateTime closed = close;
-            TimeSpan total = closed - opened;
-            // Retrieve correct date
-            var query = (from a in context.CsvModelClasses
-                         where a.Datum.Month == opened.Month
-                         where a.Datum.Day == opened.Day
-                         //where a.Datum.Hour == opened.Hour
-                         //where a.Datum.Minute == opened.Minute
-                         select a).ToList();
-            // Compare to difference in time
-            var queryhelvete = (from e in query
-                                where e.Plats == "Inne"
-                                select e.Temp).ToList();
-            var querysakhelvete = (from o in query
-                                   where o.Plats == "Ute"
-                                   select o.Temp).ToList();
-
-
-            double days = ((closed.Day - opened.Day));
-            if (days > 1)
-            {
-                days *= 24;
-            }
-            else
-            {
-                days = 0;
-            }
-            double minutes = total.Minutes;
-            double hours = total.Hours;
-            hours = hours + days;
-            double TotalMinutes = (hours * 60) + minutes;
-
-            // Calculate difference between both temps
-
-            //foreach (var item in query)
-            //{
-            //    Console.WriteLine($"{item.Datum}, {item.Plats}, {item.Temp}");
-            //}
-
-            foreach (var thing in queryhelvete)
-            {
-                Console.WriteLine($"{thing}");
-            }
-            Console.WriteLine($"Using Timespan: {total}, Using Double: {TotalMinutes}");
-            return total;
         }
-
         public static DateTime? GetTimeBalcony(WeatherContext context)
         {
-            var days = (from d in context.CsvModelClasses
-                        orderby d.Datum.DayOfYear ascending
-                        select d
-                       ).ToList();
-            bool running = true;
-            DateTime StartDate = days[0].Datum;
-            DateTime Date = StartDate;
-            int currentDay = StartDate.Day;
-            int counter = 0;
-            List<int> doorIsOpen = new List<int>();
+            bool runningDays = true;
             List<BalconyDoor> BalconyDoors = new List<BalconyDoor>();
-            while (running)
+            var daysInside = CsvModelClass.GetRequiredPlace("Inne", context);
+            var daysOutside = CsvModelClass.GetRequiredPlace("Ute", context);
+            DateTime StartDate = daysInside[0].Datum;
+            while (runningDays)
             {
-                bool Rising = true;
-                int increment = 1;
-                double checkTemp = 0;
-                double initialTemp = 0;
-                int doorCounter = 0;
-                var currentMinute = (from CM in days
-                                     where CM.Datum.Month == StartDate.Month
-                                     where CM.Datum.Day == StartDate.Day
-                                     where CM.Datum.Hour == StartDate.Hour
-                                     where CM.Datum.Minute == StartDate.Minute
-                                     select CM).ToList();
-                if (currentMinute.Count() == 0)
+                StartDate.AddDays(1);
+                bool runningMinutes = true;
+                DateTime TimeChecked = new DateTime();
+                int currentDay = StartDate.Day;
+                while (runningMinutes)
                 {
-                    StartDate = StartDate.AddMinutes(2);
-                    Rising = false;
-                }
-                else if (currentMinute.Count() != 0)
-                {
-                    initialTemp = currentMinute[0].Temp;
-                    checkTemp = initialTemp;
-                }
-                while (Rising)
-                {
-                    var nextMinute = (from m in days
-                                      where m.Datum.Month == StartDate.Month
-                                      where m.Datum.Day == StartDate.Day
-                                      where m.Datum.Hour == StartDate.Hour
-                                      where m.Datum.Minute == StartDate.Minute + increment
-                                      select m).ToList();
-                    if (nextMinute.Count() == 0)
+                    bool Rising = true;
+                    int increment = 1;
+                    double TempDifferenceCurrent = 0;
+                    
+                    double OriginalTempDifference = 0;
+                    int doorCounter = 0;
+                    var currentMinuteInside = CsvModelClass.GetRequiredMinutes(daysInside, StartDate, 0);
+                    var currentMinuteOutside = CsvModelClass.GetRequiredMinutes(daysOutside, StartDate, 0);
+                    if (currentMinuteInside.Count() == 0 || currentMinuteOutside.Count() == 0)
                     {
                         StartDate = StartDate.AddMinutes(2);
+                        Rising = false;
                     }
-                    else
+                    
+                    else if (currentMinuteInside.Count() != 0 && currentMinuteOutside.Count() != 0)
                     {
-                        if ((nextMinute[0].Temp - checkTemp) > 1 || (checkTemp - nextMinute[0].Temp) > 1 || (initialTemp - checkTemp) > 1)
+                        TimeChecked = currentMinuteInside[0].Datum;
+                        TempDifferenceCurrent = currentMinuteInside[0].Temp - currentMinuteOutside[0].Temp;
+                        OriginalTempDifference = TempDifferenceCurrent;
+                    }
+                    while (Rising)
+                    {
+                        var nextMinuteInside = CsvModelClass.GetRequiredMinutes(daysInside, StartDate, increment);
+                        var nextMinuteOutside = CsvModelClass.GetRequiredMinutes(daysOutside, StartDate, increment);
+                        BalconyDoor balconyDoor = new BalconyDoor();
+                        if (nextMinuteInside.Count() == 0 || nextMinuteOutside.Count() == 0)
                         {
-                            checkTemp = nextMinute[0].Temp;
-                            increment++;
-                            doorCounter++;
+                            StartDate = StartDate.AddMinutes(2);
+                            Rising = false;
                         }
-                        else if ((initialTemp - checkTemp) < 1 || (checkTemp - initialTemp) < 1)
+                        else
                         {
-                            StartDate = nextMinute[0].Datum;
-                            if (doorCounter > 1)
+                            double TempDifferenceNext = nextMinuteInside[0].Temp - nextMinuteOutside[0].Temp;
+                            if (TempDifferenceCurrent - TempDifferenceNext > 1 || OriginalTempDifference - TempDifferenceNext > 1)
                             {
-                                BalconyDoor _BalconyDoor = new BalconyDoor
-                                {
-                                    //TimeSpan = doorCounter,
-                                    ClosingDoor = StartDate
-                                };
-                                BalconyDoors.Add(_BalconyDoor);
+                                TempDifferenceCurrent = TempDifferenceNext;
+                                increment++;
+                                doorCounter++;
                             }
-                            Rising = false;
+                            else if (TempDifferenceCurrent - TempDifferenceNext < 1 || OriginalTempDifference - TempDifferenceNext < 1)
+                            {
+                                StartDate = nextMinuteInside[0].Datum;
+                                if (doorCounter > 1)
+                                {
+                                    DateTime Close = currentMinuteInside[0].Datum;
+                                    DoorOpening doorOpening = new DoorOpening(Close, doorCounter);
+                                    balconyDoor.DoorOpenings.Add(doorOpening);
+                                }
+                                Rising = false;
+                            }
                         }
-                    }
-                    if (nextMinute.Count() != 0)
-                    {
-                        if (nextMinute[0].Datum.Minute == 59)
+                        balconyDoor.DayChecked = TimeChecked;
+                        balconyDoor.TemperatureDifferences = Math.Round(TempDifferenceCurrent, 2);
+                        if (nextMinuteInside.Count() != 0 && nextMinuteOutside.Count() != 0)
                         {
-                            StartDate = StartDate.AddHours(1);
-                            StartDate = StartDate.AddMinutes(-59);
-                            Rising = false;
+                            if (nextMinuteInside[0].Datum.Minute == 59 && nextMinuteOutside[0].Datum.Minute == 59)
+                            {
+                                StartDate = StartDate.AddHours(1);
+                                StartDate = StartDate.AddMinutes(-59);
+                                Rising = false;
+                            }
+                        }
+                        BalconyDoors.Add(balconyDoor);
+                        // end of rising
+                        
+                    }
+                    if (StartDate.Hour == 23 && StartDate.Minute == 59 || currentDay != StartDate.Day)
+                    {
+                        runningMinutes = false;
+                        if(StartDate.Month == 12)
+                        {
+                            runningDays = false;
                         }
                     }
+                    // end of running minutes
                 }
-                if (StartDate.Hour == 23 && StartDate.Minute == 59 || currentDay != StartDate.Day)
+                foreach (var item in BalconyDoors)
                 {
-                    running = false;
+                    context.BalconyDoor.Add(item);
                 }
-            }
-            int totalTime = 0;
-            foreach (var item in BalconyDoors)
-            {
-                //totalTime = totalTime + item.TimeSpan;
+                context.SaveChanges();
             }
             return null;
         }

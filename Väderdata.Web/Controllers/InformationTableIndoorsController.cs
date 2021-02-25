@@ -89,7 +89,7 @@ namespace Väderdata.Web.Controllers
                             where t.SelectDate == date
                             where t.Plats == "Inne"
                             select t).ToList();
-                var Mould = (from m in _context.MögelRisks
+                var Mould = (from m in _context.MouldRisks
                              where m.SelectDate == date
                              where m.Plats == "Inne"
                              select m).ToList();
@@ -129,7 +129,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableIndoor = await _context.InformationTable
+            var informationTableIndoor = await _context.InformationTableIndoor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (informationTableIndoor == null)
             {
@@ -169,7 +169,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableIndoor = await _context.InformationTable.FindAsync(id);
+            var informationTableIndoor = await _context.InformationTableIndoor.FindAsync(id);
             if (informationTableIndoor == null)
             {
                 return NotFound();
@@ -220,7 +220,7 @@ namespace Väderdata.Web.Controllers
                 return NotFound();
             }
 
-            var informationTableIndoor = await _context.InformationTable
+            var informationTableIndoor = await _context.InformationTableIndoor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (informationTableIndoor == null)
             {
@@ -235,15 +235,15 @@ namespace Väderdata.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var informationTableIndoor = await _context.InformationTable.FindAsync(id);
-            _context.InformationTable.Remove(informationTableIndoor);
+            var informationTableIndoor = await _context.InformationTableIndoor.FindAsync(id);
+            _context.InformationTableIndoor.Remove(informationTableIndoor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool InformationTableIndoorExists(int id)
         {
-            return _context.InformationTable.Any(e => e.Id == id);
+            return _context.InformationTableIndoor.Any(e => e.Id == id);
         }
     }
 }

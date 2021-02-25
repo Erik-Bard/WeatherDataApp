@@ -17,12 +17,15 @@ namespace Väderdata.Web.Context
             {
                 AvgTempAndHumidity.PopulateAvgTempAndHumidity(context);
             }
-            if (!context.MögelRisks.Any())
+            if (!context.MouldRisks.Any())
             {
                 MögelRisk.PopulateMouldRisk(context, "Ute");
                 MögelRisk.PopulateMouldRisk(context, "Inne");
             }
-            //BalconyDoor.GetTimeBalcony(context);
+            if(!context.BalconyDoor.Any())
+            {
+                BalconyDoor.GetTimeBalcony(context);
+            }
             context.SaveChanges();
         }
     }

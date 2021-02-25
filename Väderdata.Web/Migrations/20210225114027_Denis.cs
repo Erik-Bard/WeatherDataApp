@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Väderdata.Web.Migrations
 {
-    public partial class InitialSetup : Migration
+    public partial class Denis : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,8 +29,8 @@ namespace Väderdata.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OpeningDoor = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClosingDoor = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DayChecked = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TemperatureDifferences = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +54,7 @@ namespace Väderdata.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InformationTable",
+                name: "InformationTablesIndoor",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -67,11 +67,11 @@ namespace Väderdata.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InformationTable", x => x.Id);
+                    table.PrimaryKey("PK_InformationTablesIndoor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "InformationTableOutdoor",
+                name: "InformationTablesOutdoor",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -84,7 +84,7 @@ namespace Väderdata.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InformationTableOutdoor", x => x.Id);
+                    table.PrimaryKey("PK_InformationTablesOutdoor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,10 +145,10 @@ namespace Väderdata.Web.Migrations
                 name: "CsvModelClass");
 
             migrationBuilder.DropTable(
-                name: "InformationTable");
+                name: "InformationTablesIndoor");
 
             migrationBuilder.DropTable(
-                name: "InformationTableOutdoor");
+                name: "InformationTablesOutdoor");
 
             migrationBuilder.DropTable(
                 name: "MögelRisk");
