@@ -12,7 +12,7 @@ namespace Väderdata.Web.Data
     public class MögelRisk
     {
         public int Id { get; set; }
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime SelectDate { get; set; }
         public string Plats { get; set; }
         public string RiskFörMögel { get; set; }

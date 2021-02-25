@@ -43,8 +43,6 @@ namespace Väderdata.Web.Context
         {
             string path = "TempFuktData.csv";
             StreamReader sr = new StreamReader(path);
-            Console.WriteLine("hej");
-            Console.WriteLine();
             List<string> CsvData = File.ReadAllLines(path).Distinct().ToList();
             List<CsvModelClass> SortedList = new List<CsvModelClass>();
             foreach (string item in CsvData)
@@ -61,7 +59,7 @@ namespace Väderdata.Web.Context
                                             .Replace('−', '-');
                     csvClass.Temp = double.Parse(variable);
                     csvClass.Luftfuktighet = int.Parse(values[3]);
-                    Console.WriteLine($"{csvClass.Datum}, {variable}");
+                    //Console.WriteLine($"{csvClass.Datum}, {variable}");
                     SortedList.Add(csvClass);
                 }
                 // Catch format error and set temp to 0 because double cant be null

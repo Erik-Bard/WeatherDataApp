@@ -50,11 +50,11 @@ namespace Väderdata.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ClosingDoor")
+                    b.Property<DateTime>("DayChecked")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("OpeningDoor")
-                        .HasColumnType("datetime2");
+                    b.Property<double>("TemperatureDifferences")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -109,7 +109,7 @@ namespace Väderdata.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InformationTable");
+                    b.ToTable("InformationTablesIndoor");
                 });
 
             modelBuilder.Entity("Väderdata.Web.Data.InformationTableOutdoor", b =>
@@ -136,7 +136,7 @@ namespace Väderdata.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InformationTableOutdoor");
+                    b.ToTable("InformationTablesOutdoor");
                 });
 
             modelBuilder.Entity("Väderdata.Web.Data.MeteorologiskSäsong", b =>

@@ -11,7 +11,7 @@
 //namespace Väderdata.Web.Context
 //{
 //------------------------------------------------------------INTE ANVÄNT DÅ den fungera inte men behöll ifall någonting blev snett senare------------------
-//    internal class CSVMarcus
+//    internal class CSVStreamReader
 //    {
 //        private static string csv_file_path = "TempFuktData.csv";
 //        public static void ReadCsv(WeatherContext context)

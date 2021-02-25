@@ -19,8 +19,9 @@ namespace Väderdata.Web.Context
         public DbSet<MögelRisk> MögelRisks { get; set; }
         public DbSet<MeteorologiskSäsong> WeatherSeason { get; set; }
         public DbSet<BalconyDoor> BalconyDoor { get; set; }
-        //--- Fetches ReadOnly data to use in avgTemp as Viewbag. --- //
         public DbSet<ReadOnlyEnviroment> ReadOnlyEnv { get; set; }
+        public DbSet<InformationTableIndoor> InformationTablesIndoor { get; set; }
+        public DbSet<InformationTableOutdoor> InformationTablesOutdoor { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CsvModelClass>()
@@ -28,7 +29,5 @@ namespace Väderdata.Web.Context
             modelBuilder.Entity<MögelRisk>()
                 .ToTable("MögelRisk");
         }
-        public DbSet<Väderdata.Web.Data.InformationTableIndoor> InformationTable { get; set; }
-        public DbSet<Väderdata.Web.Data.InformationTableOutdoor> InformationTableOutdoor { get; set; }
     }
 }
