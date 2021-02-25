@@ -14,18 +14,21 @@ namespace Väderdata.Web.Data
         public int Id { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime SelectDate { get; set; }
-        public string Plats { get; set; }
-        public string RiskFörMögel { get; set; }
-        public int MögelIndex { get; set; }
-        public static IQueryable<MouldRisk> SortByMögelRisk(WeatherContext context)
+        public string Place { get; set; }
+        public string RiskForMould { get; set; }
+        public int MouldIndex { get; set; }
+        
+        //Metod som sorterar mögelrisken med mögelindex i stigande ordning
+        public static IQueryable<MouldRisk> SortByMouldRisk(WeatherContext context)
         {
-            var MögelSort = from T in context.MouldRisks
-                            orderby T.MögelIndex ascending
+            var MouldSort = from T in context.MouldRisks
+                            orderby T.MouldIndex ascending
                             select T;
-            return MögelSort;
+            return MouldSort;
 
         }
-        public static string MögelText(string mould)
+        //Metod som lägger till textmeddelande med varje mögelindex från skalan 0-3. 
+        public static string MouldText(string mould)
         {
             double risk = double.Parse(mould);
             if (risk == 0)
@@ -46,9 +49,11 @@ namespace Väderdata.Web.Data
             }
             return mould;
         }
+        //Metod för att ta ut data för olika dagars medelvärme och medelvärde för luftfuktighet samt avrundar utan decimaler och beräknar mögelrisken per dag-
+        //-mot mögeltabellen.
         public static void PopulateMouldRisk(WeatherContext context, string position)
         {
-            // Here we will pull out all the different days average humidity and temperatures
+            
             var Days = from d in context.AvgTempAndHumidities
                        where d.Plats == position
                        orderby d.SelectDate ascending
@@ -78,10 +83,14 @@ namespace Väderdata.Web.Data
                         }
                     }
                 }
-
-                string MögelFakta = MögelText(mouldRisk.ToString());
-                var _MögelRisk = new MouldRisk { SelectDate = day, RiskFörMögel = MögelFakta, Plats = position, MögelIndex = mouldRisk };
+                string MögelFakta = MouldText(mouldRisk.ToString());
+                var _MögelRisk = new MouldRisk { SelectDate = day, RiskForMould = MögelFakta, Place = position, MouldIndex = mouldRisk };
                 context.MouldRisks.Add(_MögelRisk);
+                //Här skriver vi ut mögelrisken med tillhörande textsträngar från metoden MouldText ovan samt de olika parametrarna för mögelrisk och sparar sedan.
+
+                string MouldFacts = MouldText(mouldRisk.ToString());
+                var _MouldRisk = new MouldRisk { SelectDate = day, RiskForMould = MouldFacts, Place = position, MouldIndex = mouldRisk };
+                context.MouldRisks.Add(_MouldRisk);
             }
             context.SaveChanges();
         }

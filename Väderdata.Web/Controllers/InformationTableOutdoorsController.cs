@@ -91,7 +91,7 @@ namespace Väderdata.Web.Controllers
                                select t).ToList();
                 var Mould = (from m in _context.MouldRisks
                              where m.SelectDate == date
-                             where m.Plats == "Ute"
+                             where m.Place == "Ute"
                              select m).ToList();
                 double avgTemp = 0;
                 double avgHum = 0;
@@ -104,8 +104,8 @@ namespace Väderdata.Web.Controllers
                 }
                 if (Mould.Count() > 0)
                 {
-                    mouldRisk = (Mould[0].RiskFörMögel).ToString();
-                    mouldRank = Mould[0].MögelIndex;
+                    mouldRisk = Mould[0].RiskForMould.ToString();
+                    mouldRank = Mould[0].MouldIndex;
                 }
 
                 var line = new InformationTableOutdoor
