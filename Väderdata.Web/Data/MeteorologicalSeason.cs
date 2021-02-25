@@ -7,7 +7,7 @@ using Väderdata.Web.Context;
 
 namespace Väderdata.Web.Data
 {
-    public class MeteorologiskSäsong
+    public class MeteorologicalSeason
     {
         public int Id { get; set; }
 

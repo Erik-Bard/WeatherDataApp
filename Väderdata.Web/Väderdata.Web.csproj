@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\MeteorologiskSäsongController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Data\MögelRisk.cs~RF2f011a6d.TMP" />
   </ItemGroup>
 
