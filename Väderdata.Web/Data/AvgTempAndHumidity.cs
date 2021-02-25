@@ -46,6 +46,7 @@ namespace Väderdata.Web.Data
         {
             string Place = "Ute";
             bool running = true;
+            List<AvgTempAndHumidity> AvgTempAsList = new List<AvgTempAndHumidity>();
             while (running)
             {
                 DateTime StartDate = new DateTime(2016, 10, 01);
@@ -58,8 +59,8 @@ namespace Väderdata.Web.Data
                     List<double> counterListTemp = new List<double>();
                     var CSV = context.CsvModelClasses.ToList();
                     var dateSelect = (from m in CSV
-                                       where m.Datum.DayOfYear == StartDate.DayOfYear
-                                       select m).ToList();
+                                      where m.Datum.DayOfYear == StartDate.DayOfYear
+                                      select m).ToList();
                     var placeSelect = (from e in dateSelect
                                        where e.Plats == Place
                                        select e).ToList();
@@ -87,8 +88,11 @@ namespace Väderdata.Web.Data
                         double avgTemp = Math.Round((total2 / counterListTemp.Count()), 2);
 
                         //Här skickar vi tillbaka AvgTempAndHumidity som ett objekt med properties till contexten.
-                        AvgTempAndHumidity avgTemps = new AvgTempAndHumidity { Plats = Place, AverageTemperature = avgTemp, AverageHumidity = avgHum, SelectDate = StartDate };
-                        context.AvgTempAndHumidities.Add(avgTemps);
+                        AvgTempAndHumidity avgTemps = new AvgTempAndHumidity {  Plats = Place,
+                                                                                AverageTemperature = avgTemp,
+                                                                                AverageHumidity = avgHum,
+                                                                                SelectDate = StartDate };
+                        AvgTempAsList.Add(avgTemps);
                     }
                     StartDate = StartDate.AddDays(1);
                 }
@@ -97,8 +101,9 @@ namespace Väderdata.Web.Data
                     running = false;
                 }
                 Place = "Inne";
-                context.SaveChanges();
             }
+            context.AvgTempAndHumidities.BulkInsert(AvgTempAsList);
+            context.SaveChanges();
         }
     }
 }
