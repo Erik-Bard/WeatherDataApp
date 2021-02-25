@@ -19,8 +19,8 @@ namespace Väderdata.Web.Context
             }
             if (!context.MouldRisks.Any())
             {
-                MögelRisk.PopulateMouldRisk(context, "Ute");
-                MögelRisk.PopulateMouldRisk(context, "Inne");
+                MouldRisk.PopulateMouldRisk(context, "Ute");
+                MouldRisk.PopulateMouldRisk(context, "Inne");
             }
             if(!context.BalconyDoor.Any())
             {

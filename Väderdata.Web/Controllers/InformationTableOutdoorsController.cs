@@ -19,6 +19,8 @@ namespace Väderdata.Web.Controllers
             _context = context;
         }
 
+        //ActionResult Index sorterar data för utomhusparametrar på användarsidan beroende på hur 
+        //användaren väljer att sortera informationen. 
         public ActionResult Index(string sort, string search)
         {
             ViewData["SortDate"] = String.IsNullOrEmpty(sort) ? "Date-Desc" : "";
@@ -62,8 +64,12 @@ namespace Väderdata.Web.Controllers
             return View(OutdoorModel);
         }
 
+        //GetDataOutdoor är en metod som hämtar utomhusdata från InformationTableOutdoor-klassen
+
         public List<InformationTableOutdoor> GetDataOutdoor()
         {
+            //Här gör vi en ny lista av InformationTableOutdoor och Datetime och loopar igenom AvgTempAndHumidities 
+            //för att lägga till plats och datum för utomhusdata. Lägger all data i en lista.
             var OutdoorModel = new List<InformationTableOutdoor>();
             var dates = new List<DateTime>();
 
@@ -79,10 +85,14 @@ namespace Väderdata.Web.Controllers
                 }
             }
 
+            //For-loopen börjar på dag 0 och letar efter alla utomhus-datum och sorterar dom efter fallande ordning
             var OrderedDates = dates.OrderByDescending(x => x).ToList();
             var firstDate = OrderedDates.Last();
             var lastDate = OrderedDates.First();
+            
 
+            //For-loopen letar efter temperatur, luftfuktighet och mögelrisk för alla specifika datum,
+            //om ingen data finns så hoppar den vidare till nästa datum
             for (DateTime date = firstDate; date <= lastDate; date = date.AddDays(1))
             {
                 var TempHum = (from t in _context.AvgTempAndHumidities
@@ -91,7 +101,7 @@ namespace Väderdata.Web.Controllers
                                select t).ToList();
                 var Mould = (from m in _context.MouldRisks
                              where m.SelectDate == date
-                             where m.Plats == "Ute"
+                             where m.Place == "Ute"
                              select m).ToList();
                 double avgTemp = 0;
                 double avgHum = 0;
@@ -104,8 +114,8 @@ namespace Väderdata.Web.Controllers
                 }
                 if (Mould.Count() > 0)
                 {
-                    mouldRisk = (Mould[0].RiskFörMögel).ToString();
-                    mouldRank = Mould[0].MögelIndex;
+                    mouldRisk = (Mould[0].RiskForMould).ToString();
+                    mouldRank = Mould[0].MouldIndex;
                 }
 
                 var line = new InformationTableOutdoor
@@ -120,6 +130,7 @@ namespace Väderdata.Web.Controllers
             }
             return OutdoorModel;
         }
+
 
 
         // GET: InformationTableOutdoors/Details/5

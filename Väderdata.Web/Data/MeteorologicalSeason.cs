@@ -7,20 +7,21 @@ using Väderdata.Web.Context;
 
 namespace Väderdata.Web.Data
 {
-    public class MeteorologiskSäsong
+    public class MeteorologicalSeason
     {
         public int Id { get; set; }
 
-        public string? HöstStart { get; set; }
+        public string? AutumnStart { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
-        public DateTime? HöstDatum { get; set; }
+        public DateTime? AutumnDateTime { get; set; }
 
-        public string? VinterStart { get; set; }
+        public string? WinterStart { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
-        public DateTime? VinterDatum { get; set; }
+        public DateTime? WinterDateTime { get; set; }
 
-
-        public static DateTime? AutumnDate(WeatherContext context, DateTime? höstDatum)
+        //Metod som beräknar när hösten är här genom att den hämtar medeltempratur för utomhus och via loopen som kontrollerar
+        //att villkoren för höst har stämt in fem dagar i rad
+        public static DateTime? AutumnDate(WeatherContext context, DateTime? autumnDate)
         {
             int DateInRow = 0;
 
@@ -44,8 +45,8 @@ namespace Väderdata.Web.Data
                 }
                 if (DateInRow == 5)
                 {
-                    Console.WriteLine(höstDatum);
-                    return höstDatum;
+                    Console.WriteLine(autumnDate);
+                    return autumnDate;
                 }
                 if(temp > 10 || temp < 0)
                 {
@@ -54,7 +55,9 @@ namespace Väderdata.Web.Data
             }
             return null;
         }
-        public static DateTime? WinterDate(WeatherContext context, DateTime? vinterDatum)
+        //Metod som beräknar när vintern är här genom att den hämtar medeltempratur för utomhus och via loopen som kontrollerar
+        //att villkoren för vinter med tempratur under 0 har stämt in fem dagar i rad
+        public static DateTime? WinterDate(WeatherContext context, DateTime? winterDate)
         {
             int DateInRow = 0;
 
@@ -77,8 +80,8 @@ namespace Väderdata.Web.Data
                 }
                 if (DateInRow == 5)
                 {
-                    Console.WriteLine(vinterDatum);
-                    return vinterDatum;
+                    Console.WriteLine(winterDate);
+                    return winterDate;
                 }
                 if (temp > 0)
                 {

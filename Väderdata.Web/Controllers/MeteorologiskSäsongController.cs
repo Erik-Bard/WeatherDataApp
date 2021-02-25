@@ -54,30 +54,30 @@ namespace Väderdata.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,HöstStart,HöstDatum,VinterStart,VinterDatum")] MeteorologiskSäsong meteorologiskSäsong)
+        public async Task<IActionResult> Create([Bind("Id,AutumnStart,AutumnDateTime,WinterStart,WinterDateTime")] MeteorologicalSeason meteorologiskSäsong)
         {
             if (ModelState.IsValid)
             {
-                var Autumn = MeteorologiskSäsong.AutumnDate(_context, meteorologiskSäsong.HöstDatum);
-                var Winter = MeteorologiskSäsong.WinterDate(_context, meteorologiskSäsong.VinterDatum);
+                var Autumn = MeteorologicalSeason.AutumnDate(_context, meteorologiskSäsong.AutumnDateTime);
+                var Winter = MeteorologicalSeason.WinterDate(_context, meteorologiskSäsong.WinterDateTime);
                 if(Autumn == null)
                 {
-                    meteorologiskSäsong.HöstStart = "Hösten Kom aldrig detta år";
+                    meteorologiskSäsong.AutumnStart = "Hösten Kom aldrig detta år";
                 }
                 if( Winter == null)
                 {
-                    meteorologiskSäsong.VinterStart = "Vintern Kom aldrig detta år";
+                    meteorologiskSäsong.WinterStart = "Vintern Kom aldrig detta år";
                 }
                 if(Winter != null )
                 {
-                    meteorologiskSäsong.VinterStart = "Vintern Faller på detta datum i år";
+                    meteorologiskSäsong.WinterStart = "Vintern Faller på detta datum i år";
                 }
                 if (Autumn != null)
                 {
-                    meteorologiskSäsong.HöstStart = "Hösten Faller på detta datum i år";
+                    meteorologiskSäsong.AutumnStart = "Hösten Faller på detta datum i år";
                 }
-                meteorologiskSäsong.HöstDatum = Autumn;
-                meteorologiskSäsong.VinterDatum = Winter;
+                meteorologiskSäsong.AutumnDateTime = Autumn;
+                meteorologiskSäsong.WinterDateTime = Winter;
                 _context.Add(meteorologiskSäsong);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -106,7 +106,7 @@ namespace Väderdata.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,HöstDatum,VinterDatum")] MeteorologiskSäsong meteorologiskSäsong)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AutumnDateTime,WinterDateTime")] MeteorologicalSeason meteorologiskSäsong)
         {
             if (id != meteorologiskSäsong.Id)
             {
