@@ -66,7 +66,7 @@ namespace Väderdata.Web.Data
                          select p.AverageTemperature)
                          .ToList();
             var selectVinter = (from q in vinterQuery
-                                where q <= 0
+                                where q < 0
                                select q);
 
             Console.WriteLine(selectVinter);

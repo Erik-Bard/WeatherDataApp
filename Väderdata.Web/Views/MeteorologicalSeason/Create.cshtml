@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Get Date</h1>
 
 <h4>MeteorologicalSeason</h4>
 <hr />
@@ -13,17 +13,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="AutumnDateTime" class="control-label"></label>
-                <input asp-for="AutumnDateTime" class="form-control" />
-                <span asp-validation-for="AutumnDateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WinterDateTime" class="control-label"></label>
-                <input asp-for="WinterDateTime" class="form-control" />
-                <span asp-validation-for="WinterDateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Get Date" class="btn btn-primary" />
             </div>
         </form>
     </div>
