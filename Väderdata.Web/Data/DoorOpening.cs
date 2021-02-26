@@ -15,12 +15,6 @@ namespace Väderdata.Web.Data
         {
 
         }
-        public DoorOpening(DateTime openingDoor, DateTime closingDoor, int timeOpened)
-        {
-        //    OpeningDoor = openingDoor;
-        //    ClosingDoor = closingDoor;
-        //    TimeOpened = timeOpened;
-        }
     }
 }
 

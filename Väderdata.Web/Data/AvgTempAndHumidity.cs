@@ -21,26 +21,6 @@ namespace Väderdata.Web.Data
 
         public string Plats { get; set; }
 
-        //SortByHumidity sorterar medelluftfuktigheten i stigande ordning.
-        public static IQueryable<AvgTempAndHumidity> SortByHumidity(WeatherContext context)
-        {
-            var HumSort = (from H in context.AvgTempAndHumidities
-                          orderby H.AverageHumidity ascending
-                          select H);
-            return HumSort;
-                         
-        }
-
-        //SortByTemperature sorterar medeltemperaturen i stigande ordning.
-        public static IQueryable<AvgTempAndHumidity> SortByTemperature(WeatherContext context)
-        {
-            var TempSort = (from T in context.AvgTempAndHumidities
-                           orderby T.AverageTemperature ascending
-                           select T);
-            return TempSort;
-        }
-
-
         //PopulateAvgTempAndHumidity populerar AvgTempAndHumidity-tabellen i databasen
         public static void PopulateAvgTempAndHumidity(WeatherContext context)
         {

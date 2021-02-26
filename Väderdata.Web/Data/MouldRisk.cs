@@ -17,16 +17,6 @@ namespace Väderdata.Web.Data
         public string Place { get; set; }
         public string RiskForMould { get; set; }
         public int MouldIndex { get; set; }
-        
-        //Metod som sorterar mögelrisken med mögelindex i stigande ordning
-        public static IQueryable<MouldRisk> SortByMouldRisk(WeatherContext context)
-        {
-            var MouldSort = from T in context.MouldRisks
-                            orderby T.MouldIndex ascending
-                            select T;
-            return MouldSort;
-
-        }
         //Metod som lägger till textmeddelande med varje mögelindex från skalan 0-3. 
         public static string MouldText(string mould)
         {

@@ -17,23 +17,6 @@ namespace Väderdata.Web.Data
         public string MouldRisk { get; set; }
         public int MouldRank { get; set; }
         public double TotalTimeBalconyDoorOpened { get; set; }
-
-
-        //public static double AddBalconyTime(WeatherContext context, DateTime date)
-        //{
-        //    //var day = from t in context.DoorOpenings
-        //    //          where t.TimeChecked == date
-        //    //          select t;
-        //    //int counter = 0;
-        //    //var changeDay = (from c in context.InformationTableIndoor
-        //    //                 where c.SelectDate == date
-        //    //                 select c).ToList(); 
-        //    //foreach (var time in day)
-        //    //{
-        //    //    counter += time.TimeOpened;
-        //    //}
-        //    //return counter;
-        //}
     }
 }
 

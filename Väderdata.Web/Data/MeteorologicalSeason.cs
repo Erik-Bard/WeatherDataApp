@@ -37,12 +37,8 @@ namespace Väderdata.Web.Data
             var selectQuery = (from q in query
                                where q > 0 && q < 10
                                select q);
-
-            Console.WriteLine(selectQuery);
-
             foreach (var temp in selectQuery)
             {
-                Console.WriteLine(temp);
                 if (temp < 10 && temp >= 0)
                 {
                     DateInRow += 1;
@@ -51,7 +47,6 @@ namespace Väderdata.Web.Data
                 {
                     DateTime autumnStart = getDateQuery[0];
                     autumnDate = autumnStart;
-                    Console.WriteLine(autumnDate);
                     return autumnDate;
                 }
                 if(temp > 10 || temp < 0)
@@ -79,12 +74,8 @@ namespace Väderdata.Web.Data
             var selectVinter = (from q in vinterQuery
                                 where q < 0
                                select q);
-
-            Console.WriteLine(selectVinter);
-
             foreach (var temp in selectVinter)
             {
-                Console.WriteLine(temp);
                 if (temp <= 0)
                 {
                     DateInRow += 1;
@@ -93,7 +84,6 @@ namespace Väderdata.Web.Data
                 {
                     DateTime winterStart = getDateQuery[0];
                     winterDate = winterStart;
-                    Console.WriteLine(winterDate);
                     return winterDate;
                 }
                 if (temp > 0)

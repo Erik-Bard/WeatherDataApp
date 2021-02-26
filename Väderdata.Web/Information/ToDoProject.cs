@@ -9,7 +9,7 @@ namespace Väderdata.Web.Information
     {
         /*
           Datum,Plats,Temp,Luftfuktighet
-         G
+     G
             Följande information skall kunna visas
 
             • Utomhus:
@@ -36,7 +36,7 @@ namespace Väderdata.Web.Information
      klar   • Algoritmer som räknar fram aggregerad data
      klar   • Meteorologiska regler för Höst, Vinter och Mögelindex
      klar   • Mögelrisk, hitta formel.
-            • Källkoden dokumenterad i löpande kod, med särskild stor vikt vid 
+     klar   • Källkoden dokumenterad i löpande kod, med särskild stor vikt vid 
                     användandet av  algoritmer. Förklara dina val av algoritmer och 
                     datastrukturer.
      klar   • Jämför gärna de resultat du får i din app med andra elever, för att dela 
@@ -46,13 +46,12 @@ namespace Väderdata.Web.Information
          
 
      VG
-            ▫ Hur länge är balkongdörren öppen per dag, och sorterat på detta.
-                 Antagandet är att om balkongdörren öppnas så sjunker innertemperaturen lite.
-                 Yttertemperaturen höjs också lite grann, då termometern sitter nära 
-                balkongdörren.
+     klarish    ▫ Hur länge är balkongdörren öppen per dag, och sorterat på detta.
+                     Antagandet är att om balkongdörren öppnas så sjunker innertemperaturen lite.
+                     Yttertemperaturen höjs också lite grann, då termometern sitter nära 
+                    balkongdörren.
 
-            ▫ Sortering på då inne- och yttertemperaturen skiljt sig mest och minst.
-         
+                ▫ Sortering på då inne- och yttertemperaturen skiljt sig mest och minst.
          */
     }
 }
