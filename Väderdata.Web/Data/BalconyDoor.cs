@@ -77,7 +77,7 @@ namespace Väderdata.Web.Data
                 DoorOpening doorOpening = new DoorOpening();
                 if (currentMinute.Count() == 0 || nextMinute.Count() == 0)
                 {
-                    if(currentMinute.Count() != 0)
+                    if (currentMinute.Count() != 0)
                     {
                         doorOpening.Opened = openDoor;
                         doorOpening.TimeChecked = date;
@@ -86,7 +86,7 @@ namespace Väderdata.Web.Data
                     continue;
                 }
                 double checkDiff = Math.Abs(nextMinute[0].TemperatureDifferences - currentMinute[0].TemperatureDifferences);
-                if(checkDiff >= 1)
+                if (checkDiff >= 1)
                 {
                     OriginalTemp = currentMinute[0].TemperatureDifferences;
                     openDoor = true;
@@ -94,19 +94,22 @@ namespace Väderdata.Web.Data
                     doorOpening.TimeChecked = date;
                     doorOpenings.Add(doorOpening);
                 }
-                else if(Math.Abs(OriginalTemp - nextMinute[0].TemperatureDifferences) < 1)
-                {
-                    openDoor = false;
-                    doorOpening.Opened = openDoor;
-                    doorOpening.TimeChecked = date;
-                    doorOpenings.Add(doorOpening);
-                    OriginalTemp = 0;
-                }
                 else
                 {
-                    doorOpening.Opened = openDoor;
-                    doorOpening.TimeChecked = date;
-                    doorOpenings.Add(doorOpening);
+                    if (Math.Abs(OriginalTemp - currentMinute[0].TemperatureDifferences) < 1 && openDoor == true)
+                    {
+                        openDoor = false;
+                        doorOpening.Opened = openDoor;
+                        doorOpening.TimeChecked = date;
+                        doorOpenings.Add(doorOpening);
+                        OriginalTemp = 0;
+                    }
+                    else
+                    {
+                        doorOpening.Opened = openDoor;
+                        doorOpening.TimeChecked = date;
+                        doorOpenings.Add(doorOpening);
+                    }
                 }
             }
             foreach (var item in doorOpenings)
@@ -115,6 +118,7 @@ namespace Väderdata.Web.Data
             }
             context.SaveChanges();
         }
-           
+
     }
 }
+
