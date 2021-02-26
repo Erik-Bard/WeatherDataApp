@@ -11,7 +11,6 @@ namespace Väderdata.Web.Data
         public int Id { get; set; }
         public DateTime DayChecked { get; set; }
         public double TemperatureDifferences { get; set; }
-
         public BalconyDoor()
         {
         }
@@ -20,12 +19,10 @@ namespace Väderdata.Web.Data
             var inne = (from i in context.CsvModelClasses
                         where i.Plats == "Inne"
                         orderby i.Datum.DayOfYear
-                        orderby i.Datum.TimeOfDay
                         select i).ToList();
             var ute = (from u in context.CsvModelClasses
                        where u.Plats == "Ute"
                        orderby u.Datum.DayOfYear
-                       orderby u.Datum.TimeOfDay
                        select u).ToList();
 
             DateTime start = inne[0].Datum;
@@ -62,13 +59,12 @@ namespace Väderdata.Web.Data
         {
             var times = (from t in context.BalconyDoor
                          orderby t.DayChecked.DayOfYear
-                         orderby t.DayChecked.TimeOfDay
                          select t).ToList();
-            DateTime start = times[0].DayChecked;
+            DateTime start = times[0].DayChecked.AddMinutes(-times[0].DayChecked.Minute);
             DateTime end = times[(times.Count()) - 1].DayChecked;
             bool openDoor = false;
-            double OriginalTemp = 0;
             List<DoorOpening> doorOpenings = new List<DoorOpening>();
+            double OriginalTemp = 0;
             for (DateTime date = start; date <= end; date = date.AddMinutes(1))
             {
                 var currentMinute = (from c in context.BalconyDoor
@@ -98,12 +94,13 @@ namespace Väderdata.Web.Data
                     doorOpening.TimeChecked = date;
                     doorOpenings.Add(doorOpening);
                 }
-                else if(Math.Abs(OriginalTemp - nextMinute[0].TemperatureDifferences) <= 0.8)
+                else if(Math.Abs(OriginalTemp - nextMinute[0].TemperatureDifferences) < 1)
                 {
                     openDoor = false;
                     doorOpening.Opened = openDoor;
                     doorOpening.TimeChecked = date;
                     doorOpenings.Add(doorOpening);
+                    OriginalTemp = 0;
                 }
                 else
                 {
